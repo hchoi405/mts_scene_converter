@@ -7,7 +7,7 @@
 
 <scene version="0.6.0">
 
-	<integrator type="path">
+	<integrator type="sppm">
 		<integer name="maxDepth" value="6"/>
 		<integer name="photonCount" value="1000000"/>
 		<integer name="maxPasses" value="30000"/>
