@@ -6,7 +6,6 @@
 *.serialized
 *.db
 *.JPG
-*_rand_*
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/images

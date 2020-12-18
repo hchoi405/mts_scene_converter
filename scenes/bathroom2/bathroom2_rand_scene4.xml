@@ -1,0 +1,473 @@
+<scene version="0.6.0">
+	<integrator type="path">
+		<integer name="maxDepth" value="6"/>
+		<integer name="photonCount" value="1000000"/>
+		<integer name="maxPasses" value="30000"/>
+		<integer name="stepSnapshot" value="10000"/>
+		<integer name="kNN" value="10"/>
+	</integrator>
+	<texture type="bitmap" id="envLightTexture">
+		<string name="filename" value="textures/background.exr"/>
+		<float name="gamma" value="3.2"/>
+	</texture>
+	<bsdf id="envLightTextureMaterial" type="dielectric">
+		<string name="intIOR" value="vacuum"/>
+		<string name="extIOR" value="pet"/>
+	</bsdf>
+	<texture type="bitmap" id="floorTilesDiff">
+		<string name="filename" value="textures/floor_tile.png"/>
+	</texture>
+	<bsdf type="phong" id="floorTilesMat">
+		<float name="exponent" value="256"/>
+		<ref name="diffuseReflectance" id="floorTilesDiff"/>
+		<spectrum name="specularReflectance" value="0.1"/>
+	</bsdf>
+	<texture type="bitmap" id="thinTilesDiff">
+		<string name="filename" value="textures/decor3.png"/>
+	</texture>
+	<bsdf type="phong" id="thinTilesMat">
+		<float name="exponent" value="256"/>
+		<ref name="diffuseReflectance" id="thinTilesDiff"/>
+		<spectrum name="specularReflectance" value="0.1"/>
+	</bsdf>
+	<texture type="bitmap" id="wallTilesDiff">
+		<string name="filename" value="textures/tile1.png"/>
+	</texture>
+	<bsdf id="wallTilesMat" type="coating">
+		<bsdf type="conductor">
+			<string name="material" value="Ag"/>
+		</bsdf>
+		<string name="intIOR" value="water ice"/>
+	</bsdf>
+	<texture type="bitmap" id="wallTilesDecorDiff">
+		<string name="filename" value="textures/tile2.png"/>
+	</texture>
+	<bsdf type="phong" id="wallTilesDecorMat">
+		<float name="exponent" value="256"/>
+		<ref name="diffuseReflectance" id="wallTilesDecorDiff"/>
+		<spectrum name="specularReflectance" value="0.1"/>
+	</bsdf>
+	<texture type="bitmap" id="wallTilesDecor1Diff">
+		<string name="filename" value="textures/decor1.png"/>
+	</texture>
+	<bsdf type="phong" id="wallTilesDecor1Mat">
+		<float name="exponent" value="256"/>
+		<ref name="diffuseReflectance" id="wallTilesDecor1Diff"/>
+		<spectrum name="specularReflectance" value="0.1"/>
+	</bsdf>
+	<bsdf id="whiteGlossy" type="roughconductor">
+		<string name="material" value="W"/>
+		<string name="distribution" value="beckmann"/>
+		<float name="alpha" value="0.23061555691808547"/>
+	</bsdf>
+	<bsdf type="phong" id="blackGlossy">
+		<float name="exponent" value="256"/>
+		<spectrum name="specularReflectance" value="0.1"/>
+		<spectrum name="diffuseReflectance" value="0.2"/>
+	</bsdf>
+	<bsdf type="phong" id="yellowGlossy">
+		<float name="exponent" value="256"/>
+		<spectrum name="specularReflectance" value="0.1"/>
+		<rgb name="diffuseReflectance" value="#ffff6a"/>
+	</bsdf>
+	<bsdf type="diffuse" id="whiteDiff">
+		<rgb name="reflectance" value="1"/>
+	</bsdf>
+	<bsdf type="diffuse" id="blueDiff">
+		<rgb name="reflectance" value="#d9e7f1"/>
+	</bsdf>
+	<bsdf id="blueGlossy" type="conductor">
+		<string name="material" value="Cr"/>
+	</bsdf>
+	<bsdf type="phong" id="greenGlossy">
+		<float name="exponent" value="256"/>
+		<spectrum name="specularReflectance" value="0.1"/>
+		<rgb name="diffuseReflectance" value="#1fac84"/>
+	</bsdf>
+	<bsdf type="phong" id="orangeGlossy">
+		<float name="exponent" value="256"/>
+		<spectrum name="specularReflectance" value="0.1"/>
+		<rgb name="diffuseReflectance" value="#ffbf8b"/>
+	</bsdf>
+	<bsdf type="roughdielectric" id="windowMat">
+		<string name="distribution" value="phong"/>
+		<float name="alpha" value="0.5"/>
+		<float name="intIOR" value="1.7"/>
+	</bsdf>
+	<bsdf id="ceramicsMat" type="coating">
+		<bsdf type="diffuse">
+			<spectrum name="reflectance" value="0.8509,0.2653,0.0764"/>
+		</bsdf>
+		<string name="intIOR" value="ethanol"/>
+	</bsdf>
+	<bsdf type="conductor" id="chromiumMat">
+		<string name="material" value="Cr"/>
+		<string name="distribution" value="phong"/>
+	</bsdf>
+	<bsdf id="mirrorMat" type="conductor">
+		<string name="material" value="Be"/>
+	</bsdf>
+	<bsdf id="roughAluMat" type="roughconductor">
+		<string name="material" value="Mo"/>
+		<string name="distribution" value="beckmann"/>
+		<float name="alpha" value="0.2627987738974141"/>
+	</bsdf>
+	<texture type="bitmap" id="shutterTissueTexture">
+		<string name="filename" value="textures/roller_mat.jpg"/>
+	</texture>
+	<bsdf id="shutterTissueMat" type="conductor">
+		<string name="material" value="CsI"/>
+	</bsdf>
+	<bsdf id="transparentPlasticMat" type="dielectric">
+		<string name="intIOR" value="vacuum"/>
+		<string name="extIOR" value="diamond"/>
+	</bsdf>
+	<bsdf type="diffuse" id="cottonBudSticksMat">
+		<rgb name="reflectance" value="#3f9fa3"/>
+	</bsdf>
+	<texture type="bitmap" id="dishDiff">
+		<string name="filename" value="textures/dish_pattern.png"/>
+	</texture>
+	<bsdf type="phong" id="dishMat">
+		<float name="exponent" value="128"/>
+		<ref name="diffuseReflectance" id="dishDiff"/>
+		<spectrum name="specularReflectance" value="0.2"/>
+	</bsdf>
+	<bsdf type="phong" id="redGlossy">
+		<float name="exponent" value="256"/>
+		<spectrum name="specularReflectance" value="0.1"/>
+		<spectrum name="diffuseReflectance" value="0.5, 0, 0"/>
+	</bsdf>
+	<bsdf id="redTransPlasticMat" type="diffuse">
+		<texture name="diffuseReflectance" type="bitmap">
+			<string name="filename" value="./textures/rug_mask.png"/>
+			<string name="filterType" value="trilinear"/>
+		</texture>
+	</bsdf>
+	<bsdf id="blueTransPlasticMat" type="coating">
+		<bsdf type="dielectric">
+			<string name="intIOR" value="vacuum"/>
+			<string name="extIOR" value="glycerol"/>
+		</bsdf>
+		<string name="intIOR" value="fused quartz"/>
+	</bsdf>
+	<bsdf id="perfumeMat" type="diffuse">
+		<texture name="diffuseReflectance" type="bitmap">
+			<string name="filename" value="./textures/WoodChair.jpg"/>
+			<string name="filterType" value="trilinear"/>
+		</texture>
+	</bsdf>
+	<texture type="bitmap" id="lavatoryPaperDiff">
+		<string name="filename" value="textures/paper.jpg"/>
+	</texture>
+	<bsdf id="lavatoryPaperMat" type="coating">
+		<bsdf type="roughconductor">
+			<string name="material" value="VN"/>
+			<string name="distribution" value="beckmann"/>
+			<float name="alpha" value="0.22522000671422848"/>
+		</bsdf>
+		<string name="intIOR" value="pyrex"/>
+	</bsdf>
+	<texture type="bitmap" id="spongeDiff">
+		<string name="filename" value="textures/sponge.jpg"/>
+	</texture>
+	<bsdf type="diffuse" id="spongeMat">
+		<ref name="reflectance" id="spongeDiff"/>
+	</bsdf>
+	<bsdf id="nailPolishMat" type="diffuse">
+		<spectrum name="reflectance" value="0.3113,0.5175,0.2395"/>
+	</bsdf>
+	<bsdf id="soapMat" type="dielectric">
+		<string name="intIOR" value="vacuum"/>
+		<string name="extIOR" value="carbon tetrachloride"/>
+	</bsdf>
+	<shape type="serialized" id="environmentLight">
+		<string name="filename" value="geometry/environmentLight.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<emitter type="area">
+			<spectrum name="radiance" value="20"/>
+		</emitter>
+	</shape>
+	<shape type="serialized" id="walls">
+		<string name="filename" value="geometry/walls.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="blueDiff"/>
+	</shape>
+	<shape type="serialized" id="floor">
+		<string name="filename" value="geometry/floor.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="whiteDiff"/>
+	</shape>
+	<shape type="serialized" id="floorTiles">
+		<string name="filename" value="geometry/floor_tiles.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="floorTilesMat"/>
+	</shape>
+	<shape type="serialized" id="ceiling">
+		<string name="filename" value="geometry/ceiling.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="whiteDiff"/>
+	</shape>
+	<shape type="serialized" id="thin_tiles">
+		<string name="filename" value="geometry/thin_tiles.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="thinTilesMat"/>
+	</shape>
+	<shape type="serialized" id="wall_tiles">
+		<string name="filename" value="geometry/wall_tiles.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="wallTilesMat"/>
+	</shape>
+	<shape type="serialized" id="wall_tiles_decor">
+		<string name="filename" value="geometry/wall_tiles_decor.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="wallTilesDecorMat"/>
+	</shape>
+	<shape type="serialized" id="wall_tiles_decor1">
+		<string name="filename" value="geometry/wall_tiles_decor1.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="wallTilesDecor1Mat"/>
+	</shape>
+	<shape type="serialized" id="shelfs">
+		<string name="filename" value="geometry/shelfs.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="whiteGlossy"/>
+	</shape>
+	<shape type="serialized" id="windowFrames">
+		<string name="filename" value="geometry/windowFrames.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="whiteGlossy"/>
+	</shape>
+	<shape type="serialized" id="windows">
+		<string name="filename" value="geometry/windows.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="windowMat"/>
+	</shape>
+	<shape type="serialized" id="ceramicsParts">
+		<string name="filename" value="geometry/ceramics.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="ceramicsMat"/>
+	</shape>
+	<shape type="serialized" id="chromiumParts">
+		<string name="filename" value="geometry/chromiumParts.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="chromiumMat"/>
+	</shape>
+	<shape type="serialized" id="door">
+		<string name="filename" value="geometry/door.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="whiteGlossy"/>
+	</shape>
+	<shape type="serialized" id="windowSills">
+		<string name="filename" value="geometry/windowSills.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="whiteGlossy"/>
+	</shape>
+	<shape type="serialized" id="heater">
+		<string name="filename" value="geometry/heater.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="ceramicsMat"/>
+	</shape>
+	<shape type="serialized" id="mirror">
+		<string name="filename" value="geometry/mirror.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="mirrorMat"/>
+	</shape>
+	<shape type="serialized" id="cupboardKnobs">
+		<string name="filename" value="geometry/cupBoardKnobs.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="roughAluMat"/>
+	</shape>
+	<shape type="serialized" id="cupboardsPart1">
+		<string name="filename" value="geometry/cupboardsPart1.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="whiteGlossy"/>
+	</shape>
+	<shape type="serialized" id="cupboardsPart2">
+		<string name="filename" value="geometry/cupboardsPart2.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="blueGlossy"/>
+	</shape>
+	<shape type="serialized" id="cottonBudBox">
+		<string name="filename" value="geometry/cottonBudBox.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="roughAluMat"/>
+	</shape>
+	<shape type="serialized" id="cottonBudSticks">
+		<string name="filename" value="geometry/cottonBudSticks.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="cottonBudSticksMat"/>
+	</shape>
+	<shape type="serialized" id="cottonBuds">
+		<string name="filename" value="geometry/cottonBuds.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="whiteDiff"/>
+	</shape>
+	<shape type="serialized" id="lampShades">
+		<string name="filename" value="geometry/lampShades.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="ceramicsMat"/>
+	</shape>
+	<shape type="serialized" id="lampSockets">
+		<string name="filename" value="geometry/lampSockets.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="roughAluMat"/>
+	</shape>
+	<shape type="serialized" id="glassShelfMount">
+		<string name="filename" value="geometry/glassShelfMount.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="chromiumMat"/>
+	</shape>
+	<shape type="serialized" id="glassShelf">
+		<string name="filename" value="geometry/glassShelf.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="transparentPlasticMat"/>
+	</shape>
+	<shape type="serialized" id="dish">
+		<string name="filename" value="geometry/dish.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="dishMat"/>
+	</shape>
+	<shape type="serialized" id="decorBalls">
+		<string name="filename" value="geometry/decorBalls.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="redGlossy"/>
+	</shape>
+	<shape type="serialized" id="towels">
+		<string name="filename" value="geometry/towels.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="whiteDiff"/>
+	</shape>
+	<shape type="serialized" id="lavatoryPaper">
+		<string name="filename" value="geometry/lavatoryPaper.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="whiteDiff"/>
+	</shape>
+	<shape type="serialized" id="lavatoryPaper1">
+		<string name="filename" value="geometry/lavatoryPaper1.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<boolean name="faceNormals" value="true"/>
+		<ref name="bsdf" id="lavatoryPaperMat"/>
+	</shape>
+	<shape type="serialized" id="toothbrush1">
+		<string name="filename" value="geometry/toothbrush1.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="redTransPlasticMat"/>
+	</shape>
+	<shape type="serialized" id="toothbrush2">
+		<string name="filename" value="geometry/toothbrush2.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="blueTransPlasticMat"/>
+	</shape>
+	<shape type="serialized" id="brushes">
+		<string name="filename" value="geometry/brushes.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="whiteDiff"/>
+	</shape>
+	<shape type="serialized" id="perfume1">
+		<string name="filename" value="geometry/perfume1.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="chromiumMat"/>
+	</shape>
+	<shape type="serialized" id="perfume2">
+		<string name="filename" value="geometry/perfume2.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="soapMat"/>
+	</shape>
+	<shape type="serialized" id="cup">
+		<string name="filename" value="geometry/cup.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="whiteDiff"/>
+	</shape>
+	<shape type="serialized" id="sponges">
+		<string name="filename" value="geometry/sponges.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="spongeMat"/>
+	</shape>
+	<shape type="serialized" id="nailPolish1">
+		<string name="filename" value="geometry/nailPolish1.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="redGlossy"/>
+	</shape>
+	<shape type="serialized" id="nailPolish2">
+		<string name="filename" value="geometry/nailPolish2.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="nailPolishMat"/>
+	</shape>
+	<shape type="serialized" id="duck">
+		<string name="filename" value="geometry/duck.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="yellowGlossy"/>
+	</shape>
+	<shape type="serialized" id="duckEyes">
+		<string name="filename" value="geometry/duckEyes.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="blackGlossy"/>
+	</shape>
+	<shape type="serialized" id="shampoo1">
+		<string name="filename" value="geometry/shampoo1.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="greenGlossy"/>
+	</shape>
+	<shape type="serialized" id="shampoo2">
+		<string name="filename" value="geometry/shampoo2.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="greenGlossy"/>
+	</shape>
+	<shape type="serialized" id="shampoo3">
+		<string name="filename" value="geometry/shampoo3.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="orangeGlossy"/>
+	</shape>
+	<shape type="serialized" id="soap">
+		<string name="filename" value="geometry/soap.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="soapMat"/>
+	</shape>
+	<shape type="serialized" id="bigBrush">
+		<string name="filename" value="geometry/bigBrush.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<ref name="bsdf" id="soapMat"/>
+	</shape>
+	<sensor type="perspective">
+		<float name="farClip" value="110.036"/>
+		<float name="focusDistance" value="36.2857"/>
+		<float name="fov" value="70"/>
+		<string name="fovAxis" value="x"/>
+		<float name="nearClip" value="0.194848"/>
+		<transform name="toWorld">
+			<lookat origin="-11.913271863097696,4.424832675389856,9.434864060213863" target="-11.173791282454907,4.52690884727026,8.784374864671502" up="-0.5651689406425339,0.7230568939656115,-0.3972062394044163"/>
+		</transform>
+		<sampler type="independent">
+			<integer name="sampleCount" value="32"/>
+		</sampler>
+		<film type="hdrfilm">
+			<integer name="height" value="720"/>
+			<integer name="width" value="1280"/>
+			<boolean name="banner" value="false"/>
+			<rfilter type="box"/>
+		</film>
+	</sensor>
+</scene>

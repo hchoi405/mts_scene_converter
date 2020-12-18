@@ -1,0 +1,84 @@
+<scene version="0.6.0">
+	<integrator type="path">
+		<integer name="maxDepth" value="33"/>
+		<integer name="photonCount" value="1000000"/>
+		<integer name="maxPasses" value="30000"/>
+		<integer name="stepSnapshot" value="10000"/>
+		<integer name="kNN" value="10"/>
+	</integrator>
+	<bsdf id="mat_donut" type="conductor">
+		<string name="material" value="Li"/>
+	</bsdf>
+	<bsdf type="conductor" id="mat_metal">
+		<string name="material" value="Al"/>
+		<float name="alpha" value="0.1"/>
+	</bsdf>
+	<bsdf type="dielectric" id="mat_glass">
+		<float name="intIOR" value="1.5"/>
+		<float name="extIOR" value="1.0"/>
+		<float name="alpha" value="0.05"/>
+	</bsdf>
+	<bsdf id="mat_floor" type="conductor">
+		<string name="material" value="Li"/>
+	</bsdf>
+	<bsdf id="mat_lamp" type="dielectric">
+		<string name="intIOR" value="vacuum"/>
+		<string name="extIOR" value="water ice"/>
+	</bsdf>
+	<emitter type="sunsky">
+		<transform name="toWorld">
+			<rotate y="1" angle="-30"/>
+			<rotate x="1" angle="90"/>
+		</transform>
+		<float name="hour" value="9"/>
+		<float name="turbidity" value="5"/>
+		<float name="sunRadiusScale" value="4"/>
+	</emitter>
+	<shape type="serialized">
+		<string name="filename" value="meshes.serialized"/>
+		<integer name="shapeIndex" value="1"/>
+		<transform name="toWorld">
+			<scale x=".5" y=".5"/>
+			<translate y="20"/>
+		</transform>
+		<ref id="mat_floor"/>
+	</shape>
+	<shape type="serialized">
+		<string name="filename" value="meshes.serialized"/>
+		<integer name="shapeIndex" value="2"/>
+		<ref id="mat_donut"/>
+	</shape>
+	<shape type="serialized">
+		<string name="filename" value="meshes.serialized"/>
+		<integer name="shapeIndex" value="3"/>
+		<ref id="mat_glass"/>
+	</shape>
+	<shape type="serialized">
+		<string name="filename" value="meshes.serialized"/>
+		<integer name="shapeIndex" value="4"/>
+		<ref id="mat_metal"/>
+	</shape>
+	<shape type="serialized">
+		<string name="filename" value="meshes.serialized"/>
+		<integer name="shapeIndex" value="5"/>
+		<ref id="mat_metal"/>
+	</shape>
+	<sensor type="perspective">
+		<float name="farClip" value="1165.89"/>
+		<float name="focusDistance" value="51.7808"/>
+		<float name="fov" value="34.6222"/>
+		<string name="fovAxis" value="x"/>
+		<float name="nearClip" value="0.00582945"/>
+		<transform name="toWorld">
+			<lookat origin="-24.18111214014332,-38.189675505898975,30.003911687802116" target="-23.749534984901345,-37.393973650893905,29.58415609841405" up="0.2762416881478755,0.2847455959013533,0.9179381653161585"/>
+		</transform>
+		<sampler type="independent">
+			<integer name="sampleCount" value="32"/>
+		</sampler>
+		<film type="hdrfilm">
+			<integer name="height" value="768"/>
+			<integer name="width" value="1024"/>
+			<rfilter type="gaussian"/>
+		</film>
+	</sensor>
+</scene>
