@@ -1,47 +1,55 @@
+from lxml import etree
 from xml.etree.ElementTree import parse, Element, dump
 from xml.etree import ElementTree
+import xml.dom.minidom
 import random
 import math
 from datetime import datetime
 import os
 import numpy as np
 
+# Regular expression for changeing sampleCount:
+#  <integer name="sampleCount" value="[0-9]*".*
+
 # ================== User Option ======================
 
-# scene_path -- bathroom1
-#            |- bathroom2
-#            |- bedroom
-#            |- classroom
-#            |- dining-room
-#            |- kitchen1
-#            |- kitchen2
-#            |- living-room
-#            |- veach
-#            |- textures
+scenes_path = './scenes/'
+scenes = os.listdir(scenes_path)
+scenes.remove('bathroom')
+scenes.remove('bathroom2')
+scenes.remove('bookshelf')
+scenes.remove('box')
+scenes.remove('classroom')
+scenes.remove('dining-room')
+scenes.remove('glass')
+scenes.remove('living-room')
+scenes.remove('living-room-2')
+scenes.remove('spaceship')
+scenes.remove('sponza')
+scenes.remove('staircase')
+scenes.remove('torus')
+scenes.remove('veach-lamp')
+scenes.remove('water')
 
-scenes_path = 'C:\\Users\\cglab\\Desktop\\scenes\\'
-
-# scene = "bathroom1"
-# scene = "bathroom2"
-# scene = "bedroom"
-# scene = "classroom"
-# scene = "dining-room"
-# scene = "kitchen1"
-# scene = "kitchen2"
-scene = "living-room"
-# scene = "veach"
+cam_shifts = [0.01 for i in range(len(scenes))]
+scene_flags = [1 for i in range(len(scenes))]
 
 # Probability that bsdf is randomly converted
 rand_bsdf_prob = 0.5
 
 # How many random scenes generated?
-random_scene_num = 10
+random_scene_num = 5
+random_flags = [1 for i in range(random_scene_num)]
+random_flags[4] = 1
 
-# directory that contains scene.xml
-scene_path = os.path.join(scenes_path, scene)
-
-texture_path = os.path.join(scenes_path, 'textures')
+# Use textures with specified extensions
+texture_path = './textures/'
+texture_ext = ('.jpg', '.png', '.bmp')
 texture_list = os.listdir(texture_path)
+for name in texture_list:
+    if not name.lower().endswith(texture_ext):
+        texture_list.remove(name)
+    
 
 # Angle of camera view transform in degree
 angle = 30
@@ -49,44 +57,6 @@ angle = 30
 mat_list = ['a-C', 'Ag', 'Al', 'Au', 'Be', 'Cr', 'CsI', 'Cu', 'K', 'Li', 'MgO', 'Mo', 'W', 'VN', 'TiN', 'VC', 'Te', 'Ta', 'Se']
 IOR_list = ['water', 'acetone', 'ethanol', 'carbon tetrachloride', 'glycerol', 'benzene', 'silicone oil', 'bromine', 'water ice', 'fused quartz', 'pyrex',
             'acrylic glass', 'polypropylene', 'bk7', 'sodium chloride', 'amber', 'pet', 'diamond']
-
-# ================== Set camera shift range by scene ======================
-
-# bathroom1
-if scene == "bathroom1":
-    cam_shift = 0.01
-
-# bathroom2 (duck)
-elif scene == "bathroom2":
-    cam_shift = 0.01
-
-# Bedroom
-elif scene == "bedroom":
-    cam_shift = 0.01
-
-# classroom
-elif scene == "classroom":
-    cam_shift = 0.01
-
-# dining room
-elif scene == "dining-room":
-    cam_shift = 0.01
-
-# kitchen1
-elif scene == "kitchen1":
-    cam_shift = 0.01
-
-# kitchen2
-elif scene == "kitchen2":
-    cam_shift = 7
-
-# living-room
-elif scene == "living-room":
-    cam_shift = 0.01
-
-# veach door
-elif scene == "veach":
-    cam_shift = 7
 
 # =====================================================
 
@@ -216,111 +186,133 @@ if __name__ == '__main__':
 
     random.seed(datetime.now())
 
-    for i in range(random_scene_num):
-        tree = parse(os.path.join(scene_path, 'scene.xml'))
-        root = tree.getroot()
-        cam_to_world = root.find("sensor").find("transform")
-
-        # ========================= Convert Camera ============================
-
-        # List that contains pos of camera
-        cam_pos = None
-        cam_view = None
-        cam_target = None
-        cam_up = None
-
-        # Parse the position view vector, and up vector of a camera
-        if cam_to_world.find("matrix") is not None:
-            cam_mat = (cam_to_world.find("matrix").attrib["value"]).split()
-            cam_pos = convert_str_to_float([cam_mat[3], cam_mat[7], cam_mat[11]])
-            cam_view = convert_str_to_float([cam_mat[2], cam_mat[6], cam_mat[10]])
-            cam_up = convert_str_to_float([cam_mat[1], cam_mat[5], cam_mat[9]])
-
-        elif cam_to_world.find("lookat") is not None:
-            cam_pos = np.array(convert_str_to_float(cam_to_world.find("lookat").attrib["origin"].split(",")))
-            cam_view = np.array(convert_str_to_float(cam_to_world.find("lookat").attrib["target"].split(",")))
-            cam_view -= cam_pos
-            cam_up = convert_str_to_float(cam_to_world.find("lookat").attrib["up"].split(","))
-
-        else:
-            print("no transform exist in sensor")
-            exit(-1)
-
-        # Randomly shift camera
-        cam_pos[0] += random.uniform(-cam_shift, cam_shift)
-        cam_pos[1] += random.uniform(-cam_shift, cam_shift)
-        cam_pos[2] += random.uniform(-cam_shift, cam_shift)
-
-        # random sample a point on a unit spherical cap
-        constant = 1.0 / (1.0 - math.cos(math.radians(angle)))
-        theta = math.acos(1 - (random.uniform(0.0, 1.0) / constant))
-        phi = random.uniform(0, 6.2831853)
-        rand_view_vec = np.array([math.sin(theta) * math.cos(phi), math.sin(theta) * math.sin(phi), math.cos(theta)])
-        rand_up_vec = np.array([rand_view_vec[0]*rand_view_vec[2],
-                                rand_view_vec[1]*rand_view_vec[2],
-                                -rand_view_vec[0]*rand_view_vec[0]-rand_view_vec[1]*rand_view_vec[1]])
-
-        # Sample a random view on shifted camera position
-        vx = cam_view[0]
-        vy = cam_view[1]
-        vz = cam_view[2]
-
-        rot_mat = np.array([[vy,       vx*vz, vx],
-                            [-vx,      vy*vz, vy],
-                            [0, -vx*vx-vy*vy, vz]])
-
-        rotated_view = np.matmul(rot_mat, rand_view_vec)
-        rotated_up = np.matmul(rot_mat, rand_up_vec)
-
-        cam_target = rotated_view + cam_pos
-
-        cam_to_world.clear()
-        cam_to_world.set('name', "toWorld")
-        rand_lookat = ElementTree.SubElement(cam_to_world, 'lookat')
-        rand_lookat.set("origin", str(cam_pos[0])+","+str(cam_pos[1])+","+str(cam_pos[2]))
-        rand_lookat.set("target", str(cam_target[0]) + "," + str(cam_target[1]) + "," + str(cam_target[2]))
-        rand_lookat.set("up", str(rotated_up[0]) + "," + str(rotated_up[1]) + "," + str(rotated_up[2]))
-
-        # ========================= Convert BSDFs ============================
-
-        bsdfs = root.findall("bsdf")
-
-        for bsdf in bsdfs:
-
-            set_bsdf_id = False
-
-            if random.uniform(0.0, 1.0) > rand_bsdf_prob:
+    for idx, (scene, cam_shift) in enumerate(zip(scenes, cam_shifts)):        
+        if scene_flags[idx] == 0:
+            continue
+        print(scene)
+        # directory that contains scene.xml
+        scene_path = os.path.join(scenes_path, scene)
+        for i in range(random_scene_num):
+            if random_flags[i] == 0:
                 continue
 
-            ## Parse bsdf, assuming that there are no `id` either bsdf node and its nested bsdf node.
+            tree = parse(os.path.join(scene_path, 'scene.xml'))
+            root = tree.getroot()
 
-            # Parse bsdf in nested bsdf
-            nested_bsdf = bsdf.find("bsdf")
-            nested_bsdf_id = None
-            if nested_bsdf is not None:
-                if 'id' in nested_bsdf.attrib:
-                    nested_bsdf_id = nested_bsdf.attrib["id"]
+            # Original scene for the first iteration
+            if i == 0:
+                filename = scene_path + '/' + scene + '_rand_scene' + str(i) + '.xml'
+                tree.write(filename)
+                continue
 
-            # Store bsdf id
-            if nested_bsdf_id is not None:
-                set_bsdf_id = True
-                bsdf_id = nested_bsdf_id
+            # ========================= Convert Camera ============================
+            cam_to_world = root.find("sensor").find("transform")
 
-            # Store nested bsdf id
-            if 'id' in bsdf.attrib:
-                set_bsdf_id = True
-                bsdf_id = bsdf.attrib["id"]
+            # List that contains pos of camera
+            cam_pos = None
+            cam_view = None
+            cam_target = None
+            cam_up = None
 
-            bsdf.clear()
+            # Parse the position view vector, and up vector of a camera
+            if cam_to_world.find("matrix") is not None:
+                cam_mat = (cam_to_world.find("matrix").attrib["value"]).split()
+                cam_pos = convert_str_to_float([cam_mat[3], cam_mat[7], cam_mat[11]])
+                cam_view = convert_str_to_float([cam_mat[2], cam_mat[6], cam_mat[10]])
+                cam_up = convert_str_to_float([cam_mat[1], cam_mat[5], cam_mat[9]])
 
-            # Set bsdf id to stored one
-            if set_bsdf_id:
-                bsdf.set('id', bsdf_id)
+            elif cam_to_world.find("lookat") is not None:
+                cam_pos = np.array(convert_str_to_float(cam_to_world.find("lookat").attrib["origin"].split(",")))
+                cam_view = np.array(convert_str_to_float(cam_to_world.find("lookat").attrib["target"].split(",")))
+                cam_view -= cam_pos
+                cam_up = convert_str_to_float(cam_to_world.find("lookat").attrib["up"].split(","))
+
+            else:
+                print("no transform exist in sensor")
+                exit(-1)
+
+            # Randomly shift camera
+            cam_pos[0] += random.uniform(-cam_shift, cam_shift)
+            cam_pos[1] += random.uniform(-cam_shift, cam_shift)
+            cam_pos[2] += random.uniform(-cam_shift, cam_shift)
+
+            # random sample a point on a unit spherical cap
+            constant = 1.0 / (1.0 - math.cos(math.radians(angle)))
+            theta = math.acos(1 - (random.uniform(0.0, 1.0) / constant))
+            phi = random.uniform(0, 6.2831853)
+            rand_view_vec = np.array([math.sin(theta) * math.cos(phi), math.sin(theta) * math.sin(phi), math.cos(theta)])
+            rand_up_vec = np.array([rand_view_vec[0]*rand_view_vec[2],
+                                    rand_view_vec[1]*rand_view_vec[2],
+                                    -rand_view_vec[0]*rand_view_vec[0]-rand_view_vec[1]*rand_view_vec[1]])
+
+            # Sample a random view on shifted camera position
+            vx = cam_view[0]
+            vy = cam_view[1]
+            vz = cam_view[2]
+
+            rot_mat = np.array([[vy,       vx*vz, vx],
+                                [-vx,      vy*vz, vy],
+                                [0, -vx*vx-vy*vy, vz]])
+
+            rotated_view = np.matmul(rot_mat, rand_view_vec)
+            rotated_up = np.matmul(rot_mat, rand_up_vec)
+            rotated_up = rotated_up / np.linalg.norm(rotated_up)
+
+            cam_target = rotated_view + cam_pos
+
+            cam_to_world.clear()
+            cam_to_world.set('name', "toWorld")
+            rand_lookat = ElementTree.SubElement(cam_to_world, 'lookat')
+            rand_lookat.set("origin", str(cam_pos[0])+","+str(cam_pos[1])+","+str(cam_pos[2]))
+            rand_lookat.set("target", str(cam_target[0]) + "," + str(cam_target[1]) + "," + str(cam_target[2]))
+            rand_lookat.set("up", str(rotated_up[0]) + "," + str(rotated_up[1]) + "," + str(rotated_up[2]))
+
+            # ========================= Convert BSDFs ============================
+            bsdfs = root.findall("bsdf")
+
+            for bsdf in bsdfs:
+
+                set_bsdf_id = False
+
+                if random.uniform(0.0, 1.0) > rand_bsdf_prob:
+                    continue
+
+                ## Parse bsdf, assuming that there are no `id` either bsdf node and its nested bsdf node.
+
+                # Parse bsdf in nested bsdf
+                nested_bsdf = bsdf.find("bsdf")
+                nested_bsdf_id = None
+                if nested_bsdf is not None:
+                    if 'id' in nested_bsdf.attrib:
+                        nested_bsdf_id = nested_bsdf.attrib["id"]
+
+                # Store bsdf id
+                if nested_bsdf_id is not None:
+                    set_bsdf_id = True
+                    bsdf_id = nested_bsdf_id
+
+                # Store nested bsdf id
+                if 'id' in bsdf.attrib:
+                    set_bsdf_id = True
+                    bsdf_id = bsdf.attrib["id"]
+
+                bsdf.clear()
+
+                # Set bsdf id to stored one
+                if set_bsdf_id:
+                    bsdf.set('id', bsdf_id)
 
 
-            choose_rand_bsdf(bsdf)
+                choose_rand_bsdf(bsdf)
 
-        os.path.join(scene_path, 'scene.xml')
+            # ========================= Write scene ============================
 
-        tree.write(scene_path + '\\rand_scene'+ str(i)+'.xml')
-
+            filename = scene_path + '/' + scene + '_rand_scene' + str(i) + '.xml'
+            print(filename)
+            tree.write(filename)
+        
+            # For pretty print
+            parser = etree.XMLParser(remove_blank_text=True)
+            tree = etree.parse(filename, parser)
+            etree.indent(tree, space="\t")
+            tree.write(filename, pretty_print=True)
