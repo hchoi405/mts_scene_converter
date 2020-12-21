@@ -6,27 +6,20 @@
 		<integer name="stepSnapshot" value="10000"/>
 		<integer name="kNN" value="10"/>
 	</integrator>
-	<bsdf id="mat_donut" type="coating">
-		<bsdf type="diffuse">
-			<texture name="diffuseReflectance" type="bitmap">
-				<string name="filename" value="./textures/Painting2.jpg"/>
-				<string name="filterType" value="trilinear"/>
-			</texture>
-		</bsdf>
-		<string name="intIOR" value="pyrex"/>
+	<bsdf type="diffuse" id="mat_donut">
+		<rgb name="reflectance" value=".8,.8,.4"/>
 	</bsdf>
-	<bsdf id="mat_metal" type="roughconductor">
-		<string name="material" value="Cr"/>
-		<string name="distribution" value="beckmann"/>
-		<float name="alpha" value="0.18966400210376003"/>
+	<bsdf type="conductor" id="mat_metal">
+		<string name="material" value="Al"/>
+		<float name="alpha" value="0.1"/>
 	</bsdf>
 	<bsdf type="dielectric" id="mat_glass">
 		<float name="intIOR" value="1.5"/>
 		<float name="extIOR" value="1.0"/>
 		<float name="alpha" value="0.05"/>
 	</bsdf>
-	<bsdf id="mat_floor" type="diffuse">
-		<spectrum name="reflectance" value="0.7242,0.9657,0.6506"/>
+	<bsdf type="diffuse" id="mat_floor">
+		
 	</bsdf>
 	<bsdf type="diffuse" id="mat_lamp">
 		
@@ -76,7 +69,7 @@
 		<string name="fovAxis" value="x"/>
 		<float name="nearClip" value="0.00582945"/>
 		<transform name="toWorld">
-			<lookat origin="-24.17101963066854,-38.17610456784052,29.99968296787274" target="-23.78430133189942,-37.42336639224908,29.46708285375891" up="-0.5630661154269633,-0.27233377259047037,-0.7802505148762361"/>
+			<lookat origin="-24.172871033559616,-38.19265900112556,30.01226648434263" target="-23.816734833303883,-37.440194235080696,29.459253559888946" up="-0.7663689590893112,-0.12679976106745838,-0.6297622084069519"/>
 		</transform>
 		<sampler type="independent">
 			<integer name="sampleCount" value="32"/>

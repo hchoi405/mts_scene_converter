@@ -6,8 +6,8 @@
 		<integer name="stepSnapshot" value="10000"/>
 		<integer name="kNN" value="10"/>
 	</integrator>
-	<bsdf id="mat_donut" type="conductor">
-		<string name="material" value="Li"/>
+	<bsdf type="diffuse" id="mat_donut">
+		<rgb name="reflectance" value=".8,.8,.4"/>
 	</bsdf>
 	<bsdf type="conductor" id="mat_metal">
 		<string name="material" value="Al"/>
@@ -18,12 +18,11 @@
 		<float name="extIOR" value="1.0"/>
 		<float name="alpha" value="0.05"/>
 	</bsdf>
-	<bsdf id="mat_floor" type="conductor">
-		<string name="material" value="Li"/>
+	<bsdf type="diffuse" id="mat_floor">
+		
 	</bsdf>
-	<bsdf id="mat_lamp" type="dielectric">
-		<string name="intIOR" value="vacuum"/>
-		<string name="extIOR" value="water ice"/>
+	<bsdf type="diffuse" id="mat_lamp">
+		
 	</bsdf>
 	<emitter type="sunsky">
 		<transform name="toWorld">
@@ -70,7 +69,7 @@
 		<string name="fovAxis" value="x"/>
 		<float name="nearClip" value="0.00582945"/>
 		<transform name="toWorld">
-			<lookat origin="-24.18111214014332,-38.189675505898975,30.003911687802116" target="-23.749534984901345,-37.393973650893905,29.58415609841405" up="0.2762416881478755,0.2847455959013533,0.9179381653161585"/>
+			<lookat origin="-24.165279983347457,-38.18058993856437,30.0097116980559" target="-23.77583608024357,-37.400341387114274,29.520816534814028" up="-0.23342449864519824,0.5856417445913585,0.7762324074813082"/>
 		</transform>
 		<sampler type="independent">
 			<integer name="sampleCount" value="32"/>

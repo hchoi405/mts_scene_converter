@@ -9,71 +9,78 @@
 	<texture type="bitmap" id="tiny_picture">
 		<string name="filename" value="textures/tiny_picture.jpg"/>
 	</texture>
-	<bsdf type="phong" id="tinyPicMaterial">
+	<bsdf id="tinyPicMaterial" type="roughconductor">
+		<string name="material" value="Li"/>
+		<string name="distribution" value="beckmann"/>
+		<float name="alpha" value="0.062504972958744"/>
+	</bsdf>
+	<bsdf type="phong" id="blackFinished">
 		<float name="exponent" value="5000"/>
-		<ref name="diffuseReflectance" id="tiny_picture"/>
 		<spectrum name="specularReflectance" value="0.1"/>
+		<spectrum name="diffuseReflectance" value="0.005"/>
 	</bsdf>
-	<bsdf id="blackFinished" type="dielectric">
-		<string name="intIOR" value="vacuum"/>
-		<string name="extIOR" value="water"/>
-	</bsdf>
-	<bsdf type="roughconductor" id="roughAlu">
-		<string name="material" value="Al"/>
-		<float name="alpha" value="0.15"/>
-		<string name="distribution" value="phong"/>
+	<bsdf id="roughAlu" type="diffuse">
+		<texture name="diffuseReflectance" type="bitmap">
+			<string name="filename" value="./textures/Tiles.jpg"/>
+			<string name="filterType" value="trilinear"/>
+		</texture>
 	</bsdf>
 	<bsdf type="diffuse" id="whiteDiff">
 		<rgb name="reflectance" value="0.5"/>
 	</bsdf>
-	<bsdf id="polishedChromium" type="roughconductor">
+	<bsdf type="conductor" id="polishedChromium">
 		<string name="material" value="Cr"/>
-		<string name="distribution" value="beckmann"/>
-		<float name="alpha" value="0.05656013439790048"/>
+		<string name="distribution" value="phong"/>
 	</bsdf>
 	<bsdf type="phong" id="ceramics">
 		<float name="exponent" value="5000"/>
 		<spectrum name="specularReflectance" value="0.2"/>
 		<spectrum name="diffuseReflectance" value="0.8"/>
 	</bsdf>
-	<bsdf type="dielectric" id="glass">
+	<bsdf id="glass" type="coating">
+		<bsdf type="dielectric">
+			<string name="intIOR" value="vacuum"/>
+			<string name="extIOR" value="polypropylene"/>
+		</bsdf>
+		<string name="intIOR" value="diamond"/>
+	</bsdf>
+	<bsdf id="glass_teapot" type="roughconductor">
+		<string name="material" value="TiN"/>
+		<string name="distribution" value="beckmann"/>
+		<float name="alpha" value="0.28968249449388705"/>
+	</bsdf>
+	<bsdf type="roughdielectric" id="glassDiff">
 		<string name="distribution" value="phong"/>
-		<float name="intIOR" value="1.5"/>
+		<float name="alpha" value="0.5"/>
+		<float name="intIOR" value="1.7"/>
 	</bsdf>
-	<bsdf type="roughdielectric" id="glass_teapot">
-		<float name="intIOR" value="1.5"/>
-		<float name="extIOR" value="1.0"/>
-		<float name="alpha" value="0.001"/>
-	</bsdf>
-	<bsdf id="glassDiff" type="dielectric">
-		<string name="intIOR" value="vacuum"/>
-		<string name="extIOR" value="silicone oil"/>
-	</bsdf>
-	<bsdf id="silver" type="dielectric">
-		<string name="intIOR" value="vacuum"/>
-		<string name="extIOR" value="bromine"/>
+	<bsdf type="roughconductor" id="silver">
+		<string name="material" value="Ag"/>
+		<float name="alpha" value="0.03"/>
+		<string name="distribution" value="phong"/>
 	</bsdf>
 	<texture type="bitmap" id="wood_floor">
 		<string name="filename" value="textures/wood_floor.jpg"/>
 	</texture>
-	<bsdf type="phong" id="floorMaterial">
-		<float name="exponent" value="256"/>
-		<spectrum name="specularReflectance" value="0.3"/>
-		<ref name="diffuseReflectance" id="wood_floor"/>
+	<bsdf id="floorMaterial" type="diffuse">
+		<texture name="diffuseReflectance" type="bitmap">
+			<string name="filename" value="./textures/box.png"/>
+			<string name="filterType" value="trilinear"/>
+		</texture>
 	</bsdf>
 	<texture type="bitmap" id="books1">
 		<string name="filename" value="textures/books1.png"/>
 	</texture>
-	<bsdf id="booksLeftMaterial" type="roughconductor">
-		<string name="material" value="Mo"/>
-		<string name="distribution" value="beckmann"/>
-		<float name="alpha" value="0.11321476498705223"/>
+	<bsdf type="diffuse" id="booksLeftMaterial">
+		<ref name="reflectance" id="books1"/>
 	</bsdf>
 	<texture type="bitmap" id="books2">
 		<string name="filename" value="textures/books2.jpg"/>
 	</texture>
-	<bsdf type="diffuse" id="booksTopMaterial">
-		<ref name="reflectance" id="books2"/>
+	<bsdf id="booksTopMaterial" type="roughconductor">
+		<string name="material" value="a-C"/>
+		<string name="distribution" value="beckmann"/>
+		<float name="alpha" value="0.07741703274463703"/>
 	</bsdf>
 	<texture type="bitmap" id="book_alistair">
 		<string name="filename" value="textures/book_alistair.jpg"/>
@@ -84,8 +91,9 @@
 	<texture type="bitmap" id="book_historia">
 		<string name="filename" value="textures/book_historia.jpg"/>
 	</texture>
-	<bsdf type="diffuse" id="booksHistoriaMaterial">
-		<ref name="reflectance" id="book_historia"/>
+	<bsdf id="booksHistoriaMaterial" type="dielectric">
+		<string name="intIOR" value="vacuum"/>
+		<string name="extIOR" value="water"/>
 	</bsdf>
 	<texture type="bitmap" id="book_dictionary">
 		<string name="filename" value="textures/book_dictionary.jpg"/>
@@ -96,14 +104,14 @@
 	<texture type="bitmap" id="105">
 		<string name="filename" value="textures/105.JPG"/>
 	</texture>
-	<bsdf id="furnitureMaterial" type="dielectric">
-		<string name="intIOR" value="vacuum"/>
-		<string name="extIOR" value="acrylic glass"/>
+	<bsdf type="phong" id="furnitureMaterial">
+		<float name="exponent" value="32"/>
+		<spectrum name="specularReflectance" value="0.1"/>
+		<ref name="diffuseReflectance" id="105"/>
 	</bsdf>
-	<bsdf type="roughconductor" id="gold">
-		<string name="material" value="Au"/>
-		<float name="alpha" value="0.1"/>
-		<string name="distribution" value="phong"/>
+	<bsdf id="gold" type="dielectric">
+		<string name="intIOR" value="vacuum"/>
+		<string name="extIOR" value="pet"/>
 	</bsdf>
 	<bsdf type="diffuse" id="brownDiff">
 		<rgb name="reflectance" value="#0e0701"/>
@@ -116,20 +124,21 @@
 	</bsdf>
 	<bsdf id="mirrorMaterial" type="dielectric">
 		<string name="intIOR" value="vacuum"/>
-		<string name="extIOR" value="fused quartz"/>
+		<string name="extIOR" value="water ice"/>
 	</bsdf>
 	<texture type="bitmap" id="snow_flowers">
 		<string name="filename" value="textures/Snow flowers.jpg"/>
 	</texture>
-	<bsdf id="largePicMaterial" type="dielectric">
-		<string name="intIOR" value="vacuum"/>
-		<string name="extIOR" value="pet"/>
+	<bsdf type="phong" id="largePicMaterial">
+		<float name="exponent" value="5000"/>
+		<ref name="diffuseReflectance" id="snow_flowers"/>
+		<spectrum name="specularReflectance" value="0.1"/>
 	</bsdf>
 	<bsdf type="diffuse" id="redDiff">
 		<rgb name="reflectance" value="0.5 0.05 0.05"/>
 	</bsdf>
 	<bsdf id="thinglass" type="conductor">
-		<string name="material" value="Ag"/>
+		<string name="material" value="Be"/>
 	</bsdf>
 	<shape type="serialized" id="lampLightSource">
 		<string name="filename" value="geometry/lightBulb.serialized"/>
@@ -1035,7 +1044,7 @@
 		<string name="fovAxis" value="x"/>
 		<float name="nearClip" value="0.41821"/>
 		<transform name="toWorld">
-			<lookat origin="3.4166679145515544,5.839125445158545,22.869751813758786" target="3.919655419305314,5.5924907459807525,22.08977368368327" up="-0.893911669218609,-0.3828423324913567,-0.23313874857555864"/>
+			<lookat origin="3.4039201136715542,5.842811030533198,22.86102217583116" target="4.252451454554895,5.972494661761302,22.37669791028486" up="0.061001001403789334,0.8192203255880445,0.570225337889464"/>
 		</transform>
 		<sampler type="independent">
 			<integer name="sampleCount" value="32"/>
