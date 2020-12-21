@@ -2,8 +2,8 @@
 	<integrator type="sppm">
 		<integer name="maxDepth" value="17" />
 		<integer name="photonCount" value="1000000" />
-		<integer name="maxPasses" value="30000" />
-		<integer name="stepSnapshot" value="10000" />
+		<integer name="maxPasses" value="30000"/>
+		<integer name="stepSnapshot" value="10000"/>
 		<integer name="kNN" value="10" />
 	</integrator>
 	<sensor type="perspective">
