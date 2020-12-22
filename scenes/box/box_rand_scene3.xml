@@ -8,7 +8,7 @@
 	</integrator>
 	<sensor id="Camera-camera" type="perspective">
 		<transform name="toWorld">
-			<lookat origin="-0.24213671344186377,-0.12695714961192772,2.4271402996035727" target="0.2297546426172296,0.019392676932712016,0.5571399076973504" up="0.29426765597032806,0.07650976111486284,0.9526556582017845"/>
+			<lookat origin="-0.24668344172982232,-0.12810399454110105,2.4359980288161025" target="0.00043879196603835435,-0.17456776205961738,0.5310868395805484" up="-0.04877710738532397,-0.23310831510369368,0.9712267022815205"/>
 		</transform>
 		<float name="fov" value="35.0"/>
 		<string name="fovAxis" value="y"/>
@@ -48,71 +48,77 @@
 			<float name="samplingWeight" value="1"/>
 		</emitter>
 	</shape>
-	<bsdf id="glass_material" type="dielectric">
-		<string name="intIOR" value="vacuum"/>
-		<string name="extIOR" value="diamond"/>
+	<bsdf id="glass_material" type="diffuse">
+		<texture name="diffuseReflectance" type="bitmap">
+			<string name="filename" value="./textures/105.JPG"/>
+			<string name="filterType" value="trilinear"/>
+		</texture>
 	</bsdf>
 	<bsdf id="emitter_material" type="diffuse">
 		<srgb name="reflectance" value="1 1 1"/>
 	</bsdf>
-	<bsdf id="metal_material" type="dielectric">
-		<string name="intIOR" value="vacuum"/>
-		<string name="extIOR" value="diamond"/>
+	<bsdf id="metal_material" type="coating">
+		<bsdf type="dielectric">
+			<string name="intIOR" value="vacuum"/>
+			<string name="extIOR" value="acrylic glass"/>
+		</bsdf>
+		<string name="intIOR" value="sodium chloride"/>
 	</bsdf>
 	<bsdf id="diffuse_yellow_material" type="diffuse">
-		<srgb name="reflectance" value="0.94902 0.94902 0.09804"/>
+		<texture name="diffuseReflectance" type="bitmap">
+			<string name="filename" value="./textures/roller_mat.jpg"/>
+			<string name="filterType" value="trilinear"/>
+		</texture>
 	</bsdf>
 	<bsdf id="diffuse_blue_material" type="diffuse">
 		<srgb name="reflectance" value="0.09804 0.09804 0.94902"/>
 	</bsdf>
-	<bsdf id="diffuse_white_material" type="roughconductor">
-		<string name="material" value="K"/>
-		<string name="distribution" value="beckmann"/>
-		<float name="alpha" value="0.04146714363547906"/>
+	<bsdf id="diffuse_white_material" type="diffuse">
+		<srgb name="reflectance" value="0.91765 0.91765 0.91765"/>
 	</bsdf>
 	<shape id="box_mesh" type="serialized">
 		<string name="filename" value="box.serialized"/>
 		<integer name="shapeIndex" value="0"/>
-		<ref name="bsdf" id="diffuse_white_material"/>
+		<ref id="diffuse_white_material" name="bsdf"/>
 	</shape>
 	<shape id="box_1_mesh" type="serialized">
 		<string name="filename" value="box.serialized"/>
 		<integer name="shapeIndex" value="1"/>
-		<ref name="bsdf" id="metal_material"/>
+		<ref id="metal_material" name="bsdf"/>
 	</shape>
 	<shape id="box_2_mesh" type="serialized">
 		<string name="filename" value="box.serialized"/>
 		<integer name="shapeIndex" value="2"/>
-		<ref name="bsdf" id="diffuse_blue_material"/>
+		<ref id="diffuse_blue_material" name="bsdf"/>
 	</shape>
 	<shape id="box_3_mesh" type="serialized">
 		<string name="filename" value="box.serialized"/>
 		<integer name="shapeIndex" value="3"/>
-		<ref name="bsdf" id="diffuse_yellow_material"/>
+		<ref id="diffuse_yellow_material" name="bsdf"/>
 	</shape>
 	<shape id="box_4_mesh" type="serialized">
 		<string name="filename" value="box.serialized"/>
 		<integer name="shapeIndex" value="4"/>
-		<ref name="bsdf" id="metal_material"/>
+		<ref id="metal_material" name="bsdf"/>
 	</shape>
 	<shape id="box_5_mesh" type="serialized">
 		<string name="filename" value="box.serialized"/>
 		<integer name="shapeIndex" value="5"/>
-		<ref name="bsdf" id="glass_material"/>
+		<ref id="glass_material" name="bsdf"/>
 	</shape>
 	<shape id="box_6_mesh" type="serialized">
 		<string name="filename" value="box.serialized"/>
 		<integer name="shapeIndex" value="6"/>
-		<ref name="bsdf" id="metal_material"/>
+		<ref id="metal_material" name="bsdf"/>
 	</shape>
 	<shape id="box_7_mesh" type="serialized">
 		<string name="filename" value="box.serialized"/>
 		<integer name="shapeIndex" value="7"/>
-		<ref name="bsdf" id="glass_material"/>
+		<ref id="glass_material" name="bsdf"/>
 	</shape>
 	<shape id="box_8_mesh" type="serialized">
 		<string name="filename" value="box.serialized"/>
 		<integer name="shapeIndex" value="8"/>
-		<ref name="bsdf" id="emitter_material"/>
+		<ref id="emitter_material" name="bsdf"/>
 	</shape>
 </scene>
