@@ -36,71 +36,77 @@
 	<texture type="bitmap" id="Map__54_image-image">
 		<string name="filename" value="textures/vrata_ko.JPG"/>
 	</texture>
-	<bsdf type="diffuse" id="sp_00_luk_mali">
-		<ref name="reflectance" id="Map__1_image-image"/>
+	<bsdf id="sp_00_luk_mali" type="coating">
+		<bsdf type="roughconductor">
+			<string name="material" value="Al"/>
+			<string name="distribution" value="beckmann"/>
+			<float name="alpha" value="0.004865694631813652"/>
+		</bsdf>
+		<string name="intIOR" value="fused quartz"/>
 	</bsdf>
-	<bsdf type="diffuse" id="sp_svod_kapitel">
-		<ref name="reflectance" id="Map__46_image-image"/>
+	<bsdf id="sp_svod_kapitel" type="diffuse">
+		<spectrum name="reflectance" value="0.8187,0.9169,0.9954"/>
 	</bsdf>
-	<bsdf id="sp_01_stub_baza_" type="diffuse">
+	<bsdf id="sp_01_stub_baza_" type="roughconductor">
+		<string name="material" value="Ag"/>
+		<string name="distribution" value="beckmann"/>
+		<float name="alpha" value="0.16358064576178227"/>
+	</bsdf>
+	<bsdf id="sp_01_stub_kut" type="diffuse">
 		<texture name="diffuseReflectance" type="bitmap">
-			<string name="filename" value="./textures/vrata_kr.JPG"/>
+			<string name="filename" value="./textures/wood2.jpg"/>
 			<string name="filterType" value="trilinear"/>
 		</texture>
 	</bsdf>
-	<bsdf id="sp_01_stub_kut" type="conductor">
-		<string name="material" value="Li"/>
-	</bsdf>
-	<bsdf type="diffuse" id="sp_00_stup">
-		<ref name="reflectance" id="Map__38_image-image"/>
+	<bsdf id="sp_00_stup" type="roughconductor">
+		<string name="material" value="a-C"/>
+		<string name="distribution" value="beckmann"/>
+		<float name="alpha" value="0.23031430438569725"/>
 	</bsdf>
 	<bsdf type="diffuse" id="sp_01_stub_baza">
 		<ref name="reflectance" id="Map__35_image-image"/>
 	</bsdf>
-	<bsdf id="sp_01_stub" type="diffuse">
-		<spectrum name="reflectance" value="0.9938,0.5842,0.5204"/>
+	<bsdf id="sp_01_stub" type="conductor">
+		<string name="material" value="Mo"/>
 	</bsdf>
-	<bsdf id="sp_01_stup" type="dielectric">
-		<string name="intIOR" value="vacuum"/>
-		<string name="extIOR" value="fused quartz"/>
+	<bsdf id="sp_01_stup" type="conductor">
+		<string name="material" value="TiN"/>
 	</bsdf>
-	<bsdf id="sp_vijenac" type="conductor">
-		<string name="material" value="K"/>
+	<bsdf type="diffuse" id="sp_vijenac">
+		<ref name="reflectance" id="Map__46_image-image"/>
 	</bsdf>
 	<bsdf type="diffuse" id="sp_00_pod">
 		<ref name="reflectance" id="Map__9_image-image"/>
 	</bsdf>
-	<bsdf id="sp_00_svod" type="roughconductor">
-		<string name="material" value="W"/>
-		<string name="distribution" value="beckmann"/>
-		<float name="alpha" value="0.10267756980235507"/>
+	<bsdf type="phong" id="sp_00_svod">
+		<rgb name="diffuseReflectance" value="0.941177 0.866667 0.737255"/>
+		<rgb name="specularReflectance" value="0.034039 0.032314 0.029333"/>
+		<float name="exponent" value="1.07177"/>
 	</bsdf>
-	<bsdf type="diffuse" id="sp_02_reljef">
-		<ref name="reflectance" id="Map__44_image-image"/>
+	<bsdf id="sp_02_reljef" type="conductor">
+		<string name="material" value="K"/>
 	</bsdf>
-	<bsdf id="sp_01_luk_a" type="conductor">
-		<string name="material" value="Li"/>
+	<bsdf type="diffuse" id="sp_01_luk_a">
+		<ref name="reflectance" id="Map__1_image-image"/>
 	</bsdf>
-	<bsdf id="sp_zid_vani" type="diffuse">
-		<spectrum name="reflectance" value="0.5727,0.0661,0.0978"/>
+	<bsdf type="diffuse" id="sp_zid_vani">
+		<ref name="reflectance" id="Map__9_image-image"/>
 	</bsdf>
-	<bsdf type="diffuse" id="sp_01_stup_baza">
-		<ref name="reflectance" id="Map__35_image-image"/>
+	<bsdf id="sp_01_stup_baza" type="dielectric">
+		<string name="intIOR" value="vacuum"/>
+		<string name="extIOR" value="acrylic glass"/>
 	</bsdf>
 	<bsdf type="diffuse" id="sp_00_zid">
 		<ref name="reflectance" id="Map__9_image-image"/>
 	</bsdf>
-	<bsdf id="sp_00_prozor" type="conductor">
-		<string name="material" value="VN"/>
+	<bsdf type="diffuse" id="sp_00_prozor">
+		<ref name="reflectance" id="Map__11_image-image"/>
 	</bsdf>
 	<bsdf type="diffuse" id="sp_00_vrata_krug">
 		<ref name="reflectance" id="Map__55_image-image"/>
 	</bsdf>
-	<bsdf id="sp_00_vrata_kock" type="diffuse">
-		<texture name="diffuseReflectance" type="bitmap">
-			<string name="filename" value="./textures/sponge.jpg"/>
-			<string name="filterType" value="trilinear"/>
-		</texture>
+	<bsdf type="diffuse" id="sp_00_vrata_kock">
+		<ref name="reflectance" id="Map__54_image-image"/>
 	</bsdf>
 	<sensor type="perspective">
 		<float name="farClip" value="1000"/>
@@ -109,7 +115,7 @@
 		<string name="fovAxis" value="x"/>
 		<float name="nearClip" value="1"/>
 		<transform name="toWorld">
-			<lookat origin="2.2461349704230886,8.24511238508998,-0.04287268248202254" target="3.1666688212461307,7.859560305405129,-0.10594195374991174" up="0.21291965200539806,0.6304648426021696,-0.7464444413568379"/>
+			<lookat origin="2.2484218801761124,8.232969732623825,-0.039797398903403544" target="2.9737882673825418,7.5571518223117105,0.09106331613806083" up="-0.664253414893734,-0.6373139209486682,0.3906384094876584"/>
 		</transform>
 		<sampler type="independent">
 			<integer name="sampleCount" value="32"/>
