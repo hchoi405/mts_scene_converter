@@ -2,8 +2,8 @@
 	<integrator type="sppm">
 		<integer name="maxDepth" value="6"/>
 		<integer name="photonCount" value="1000000"/>
-		<integer name="maxPasses" value="30000"/>
-		<integer name="stepSnapshot" value="10000"/>
+		<integer name="maxPasses" value="100"/>
+		<integer name="stepSnapshot" value="100"/>
 		<integer name="kNN" value="10"/>
 	</integrator>
 	<sensor type="perspective">
@@ -13,7 +13,7 @@
 		<string name="fovAxis" value="x"/>
 		<float name="nearClip" value="0.1"/>
 		<transform name="toWorld">
-			<lookat origin="-0.8959900548274266,-5.846862459947345,0.2427274030335157" target="-0.8160619360639498,-4.856069886066928,0.1335252259279321" up="0.1892658386248886,-0.12277659655865164,-0.9742198672102165"/>
+			<lookat origin="-0.9020053564414694,-5.850334074578316,0.25307123216113403" target="-1.2371425160402758,-4.911143562966647,0.32557758991914365" up="-0.9005736623597475,-0.3427905111538005,0.26732329514441394"/>
 		</transform>
 		<sampler type="independent">
 			<integer name="sampleCount" value="32"/>
@@ -25,38 +25,27 @@
 			<rfilter type="box"/>
 		</film>
 	</sensor>
-	<bsdf id="Glass" type="coating">
-		<bsdf type="diffuse">
-			<spectrum name="reflectance" value="0.6233,0.8251,0.3472"/>
-		</bsdf>
-		<string name="intIOR" value="pet"/>
+	<bsdf type="dielectric" id="Glass">
+		<float name="extIOR" value="1.0"/>
+		<float name="intIOR" value="1.5"/>
 	</bsdf>
-	<bsdf id="LampMaterial" type="conductor">
-		<string name="material" value="Se"/>
+	<bsdf type="ward" id="LampMaterial">
+		<spectrum name="diffuseReflectance" value="0"/>
+		<rgb name="specularReflectance" value="0.61600 0.47520 0.35200"/>
+		<float name="alpha" value="0.4"/>
 	</bsdf>
-	<bsdf id="Diffuse" type="coating">
-		<bsdf type="diffuse">
-			<texture name="diffuseReflectance" type="bitmap">
-				<string name="filename" value="./textures/wood1.jpg"/>
-				<string name="filterType" value="trilinear"/>
-			</texture>
-		</bsdf>
-		<string name="intIOR" value="amber"/>
+	<bsdf id="Diffuse" type="conductor">
+		<string name="material" value="W"/>
 	</bsdf>
-	<bsdf type="diffuse" id="Luminaire2Material">
-		<rgb name="reflectance" value="0.5 0.5 0.5"/>
+	<bsdf id="Luminaire2Material" type="dielectric">
+		<string name="intIOR" value="vacuum"/>
+		<string name="extIOR" value="bromine"/>
 	</bsdf>
 	<bsdf type="diffuse" id="Luminaire1Material">
 		<rgb name="reflectance" value="0.5 0.5 0.5"/>
 	</bsdf>
-	<bsdf id="Wood" type="coating">
-		<bsdf type="diffuse">
-			<texture name="diffuseReflectance" type="bitmap">
-				<string name="filename" value="./textures/01_S_ba.JPG"/>
-				<string name="filterType" value="trilinear"/>
-			</texture>
-		</bsdf>
-		<string name="intIOR" value="bk7"/>
+	<bsdf id="Wood" type="conductor">
+		<string name="material" value="VN"/>
 	</bsdf>
 	<shape type="serialized" id="Egg-Mesh-mesh_0">
 		<string name="filename" value="bidir.serialized"/>
