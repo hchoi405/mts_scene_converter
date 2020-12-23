@@ -135,7 +135,7 @@ def fill_rand_conductor(bsdf):
 
 def fill_rand_rough_conductor(bsdf):
 
-    rand_alpha = str(random.uniform(0.001, 0.3))
+    rand_alpha = str(random.uniform(0.001, 0.1))
 
     chosen_mat = random.choice(mat_list)
     material = ElementTree.SubElement(bsdf, 'string')
