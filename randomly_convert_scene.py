@@ -15,6 +15,7 @@ import numpy as np
 
 scenes_path = './scenes/'
 scenes = os.listdir(scenes_path)
+scenes.remove('artware')
 scenes.remove('bathroom')
 scenes.remove('bathroom2')
 scenes.remove('bookshelf')
