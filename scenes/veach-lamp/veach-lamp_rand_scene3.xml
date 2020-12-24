@@ -5,7 +5,7 @@
 		<integer name="maxDepth" value="6"/>
 		<integer name="photonCount" value="1000000"/>
 		<integer name="maxPasses" value="$maxPasses"/>
-		<integer name="stepSnapshot" value="100"/>
+		<integer name="stepSnapshot" value="10000"/>
 		<integer name="kNN" value="10"/>
 	</integrator>
 	<sensor type="perspective">
@@ -15,7 +15,7 @@
 		<string name="fovAxis" value="x"/>
 		<float name="nearClip" value="0.1"/>
 		<transform name="toWorld">
-			<lookat origin="-0.9020053564414694,-5.850334074578316,0.25307123216113403" target="-1.2371425160402758,-4.911143562966647,0.32557758991914365" up="-0.9005736623597475,-0.3427905111538005,0.26732329514441394"/>
+			<lookat origin="-0.8955336927304594,-5.844981314328897,0.2422161891333791" target="-0.8429905648022201,-4.847166804630672,0.20225098337698902" up="-0.9533550854295666,0.062003451810716315,0.2954143751565588"/>
 		</transform>
 		<sampler type="independent">
 			<integer name="sampleCount" value="32"/>
@@ -27,27 +27,30 @@
 			<rfilter type="box"/>
 		</film>
 	</sensor>
-	<bsdf type="dielectric" id="Glass">
-		<float name="extIOR" value="1.0"/>
-		<float name="intIOR" value="1.5"/>
+	<bsdf id="Glass" type="diffuse">
+		<spectrum name="reflectance" value="0.9565,0.5215,0.685"/>
 	</bsdf>
 	<bsdf type="ward" id="LampMaterial">
 		<spectrum name="diffuseReflectance" value="0"/>
 		<rgb name="specularReflectance" value="0.61600 0.47520 0.35200"/>
 		<float name="alpha" value="0.4"/>
 	</bsdf>
-	<bsdf id="Diffuse" type="conductor">
-		<string name="material" value="W"/>
+	<bsdf type="diffuse" id="Diffuse">
+		<rgb name="reflectance" value="0.5 0.5 0.5"/>
 	</bsdf>
-	<bsdf id="Luminaire2Material" type="dielectric">
-		<string name="intIOR" value="vacuum"/>
-		<string name="extIOR" value="bromine"/>
+	<bsdf type="diffuse" id="Luminaire2Material">
+		<rgb name="reflectance" value="0.5 0.5 0.5"/>
 	</bsdf>
 	<bsdf type="diffuse" id="Luminaire1Material">
 		<rgb name="reflectance" value="0.5 0.5 0.5"/>
 	</bsdf>
-	<bsdf id="Wood" type="conductor">
-		<string name="material" value="VN"/>
+	<bsdf id="Wood" type="coating">
+		<bsdf type="roughconductor">
+			<string name="material" value="Cu"/>
+			<string name="distribution" value="beckmann"/>
+			<float name="alpha" value="0.080289124526771"/>
+		</bsdf>
+		<string name="intIOR" value="silicone oil"/>
 	</bsdf>
 	<shape type="serialized" id="Egg-Mesh-mesh_0">
 		<string name="filename" value="bidir.serialized"/>

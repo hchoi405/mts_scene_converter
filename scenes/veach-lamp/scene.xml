@@ -8,7 +8,7 @@
 <scene version="0.6.0">
 
 	<default name="method" value="sppm"/>
-	<default name="maxPasses" value="30000"/>
+	<default name="maxPasses" value="100"/>
 	<integrator type="$method">
 		<integer name="maxDepth" value="6"/>
 		<integer name="photonCount" value="1000000"/>
