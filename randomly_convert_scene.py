@@ -232,9 +232,7 @@ if __name__ == '__main__':
                 exit(-1)
 
             # Randomly shift camera
-            cam_pos[0] += random.uniform(-cam_shift, cam_shift)
-            cam_pos[1] += random.uniform(-cam_shift, cam_shift)
-            cam_pos[2] += random.uniform(-cam_shift, cam_shift)
+            cam_pos += cam_pos * np.random.uniform(-0.01, 0.01, size=cam_pos.shape)
 
             # random sample a point on a unit spherical cap
             constant = 1.0 / (1.0 - math.cos(math.radians(angle)))
@@ -270,8 +268,11 @@ if __name__ == '__main__':
             # ========================= Convert BSDFs ============================
             bsdfs = root.findall("bsdf")
 
-            for bsdf in bsdfs:
+            shapes = root.findall("shape")
+            for shape in shapes:
+                bsdfs += shape.findall("bsdf")
 
+            for bsdf in bsdfs:
                 set_bsdf_id = False
 
                 if random.uniform(0.0, 1.0) > rand_bsdf_prob:
