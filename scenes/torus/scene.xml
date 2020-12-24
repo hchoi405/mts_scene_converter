@@ -2,10 +2,12 @@
 <!-- Automatically converted from Rhino 5.0 -->
 
 <scene version="0.6.0">
-	<integrator type="sppm">
+	<default name="method" value="sppm"/>
+	<default name="maxPasses" value="30000"/>
+	<integrator type="$method">
 		<integer name="maxDepth" value="33"/>
 		<integer name="photonCount" value="1000000"/>
-		<integer name="maxPasses" value="100"/>
+		<integer name="maxPasses" value="$maxPasses"/>
 		<integer name="stepSnapshot" value="100"/>
 		<integer name="kNN" value="10"/>
 	</integrator>
