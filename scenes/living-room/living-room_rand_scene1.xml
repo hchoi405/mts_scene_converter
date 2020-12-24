@@ -11,7 +11,7 @@
 	<sensor type="perspective">
 		<float name="fov" value="90"/>
 		<transform name="toWorld">
-			<lookat origin="5.11502206408967,0.721856504620603,-2.308006209525671" target="4.172925494639207,0.8063468662635768,-1.9839607461775177" up="0.33821444263824046,0.15350837419137944,0.9284644149583892"/>
+			<lookat origin="5.114747007853544,0.7410586824777882,-2.3239482130639098" target="4.117577075620192,0.7658393789195652,-2.301014002399773" up="-0.00984926878492085,-0.204622261925167,-0.9787914598263672"/>
 		</transform>
 		<sampler type="independent">
 			<integer name="sampleCount" value="32"/>
@@ -29,18 +29,13 @@
 			<rgb name="reflectance" value="0.098504, 0.045968, 0.035887"/>
 		</bsdf>
 	</bsdf>
-	<bsdf type="twosided" id="Floor">
-		<bsdf type="roughplastic">
-			<float name="alpha" value="0.15"/>
-			<string name="distribution" value="ggx"/>
-			<float name="intIOR" value="1.5"/>
-			<float name="extIOR" value="1"/>
-			<boolean name="nonlinear" value="true"/>
-			<texture name="diffuseReflectance" type="bitmap">
-				<string name="filename" value="textures/wood.jpg"/>
-				<string name="filterType" value="trilinear"/>
-			</texture>
+	<bsdf id="Floor" type="coating">
+		<bsdf type="roughconductor">
+			<string name="material" value="Cu"/>
+			<string name="distribution" value="beckmann"/>
+			<float name="alpha" value="0.013156791670029835"/>
 		</bsdf>
+		<string name="intIOR" value="amber"/>
 	</bsdf>
 	<bsdf type="twosided" id="TableWood">
 		<bsdf type="roughplastic">
@@ -55,42 +50,40 @@
 			</texture>
 		</bsdf>
 	</bsdf>
-	<bsdf id="Sofa" type="conductor">
-		<string name="material" value="Ag"/>
+	<bsdf type="twosided" id="Sofa">
+		<bsdf type="diffuse">
+			<rgb name="reflectance" value="1, 1, 1"/>
+		</bsdf>
 	</bsdf>
-	<bsdf type="twosided" id="SofaLegs">
+	<bsdf id="SofaLegs" type="roughconductor">
+		<string name="material" value="TiN"/>
+		<string name="distribution" value="beckmann"/>
+		<float name="alpha" value="0.0386021235297851"/>
+	</bsdf>
+	<bsdf type="twosided" id="Walls">
 		<bsdf type="diffuse">
 			<rgb name="reflectance" value="0.1, 0.1, 0.1"/>
 		</bsdf>
 	</bsdf>
-	<bsdf id="Walls" type="conductor">
-		<string name="material" value="Cr"/>
+	<bsdf id="Paneling" type="roughconductor">
+		<string name="material" value="Mo"/>
+		<string name="distribution" value="beckmann"/>
+		<float name="alpha" value="0.04636819562643152"/>
 	</bsdf>
-	<bsdf id="Paneling" type="conductor">
-		<string name="material" value="Cu"/>
-	</bsdf>
-	<bsdf id="Mirror" type="coating">
-		<bsdf type="roughconductor">
-			<string name="material" value="Se"/>
-			<string name="distribution" value="beckmann"/>
-			<float name="alpha" value="0.023104089880358038"/>
-		</bsdf>
-		<string name="intIOR" value="water"/>
-	</bsdf>
-	<bsdf type="twosided" id="BrushedStainlessSteel">
-		<bsdf type="roughconductor">
-			<float name="alpha" value="0.02"/>
-			<string name="distribution" value="ggx"/>
-			<float name="extEta" value="1"/>
-			<rgb name="specularReflectance" value="0.578596, 0.578596, 0.578596"/>
-			<rgb name="eta" value="1.65746, 0.880369, 0.521229"/>
-			<rgb name="k" value="9.22387, 6.26952, 4.837"/>
+	<bsdf type="twosided" id="Mirror">
+		<bsdf type="conductor">
+			<string name="material" value="none"/>
 		</bsdf>
 	</bsdf>
-	<bsdf type="twosided" id="MattePaint">
-		<bsdf type="diffuse">
-			<rgb name="reflectance" value="0.578596, 0.578596, 0.578596"/>
-		</bsdf>
+	<bsdf id="BrushedStainlessSteel" type="dielectric">
+		<string name="intIOR" value="vacuum"/>
+		<string name="extIOR" value="water ice"/>
+	</bsdf>
+	<bsdf id="MattePaint" type="diffuse">
+		<texture name="diffuseReflectance" type="bitmap">
+			<string name="filename" value="./textures/cushion-green-circles.jpg"/>
+			<string name="filterType" value="trilinear"/>
+		</texture>
 	</bsdf>
 	<bsdf type="twosided" id="Painting">
 		<bsdf type="diffuse">
@@ -105,25 +98,27 @@
 			<rgb name="reflectance" value="0.26, 0.25, 0.14"/>
 		</bsdf>
 	</bsdf>
-	<bsdf type="dielectric" id="Glass">
-		<float name="intIOR" value="1.5"/>
-		<float name="extIOR" value="1"/>
+	<bsdf id="Glass" type="diffuse">
+		<texture name="diffuseReflectance" type="bitmap">
+			<string name="filename" value="./textures/Snow flowers.jpg"/>
+			<string name="filterType" value="trilinear"/>
+		</texture>
 	</bsdf>
-	<bsdf id="PlantPot" type="roughconductor">
-		<string name="material" value="Se"/>
-		<string name="distribution" value="beckmann"/>
-		<float name="alpha" value="0.15793404564750968"/>
+	<bsdf type="twosided" id="PlantPot">
+		<bsdf type="roughdiffuse">
+			<rgb name="reflectance" value="0.1, 0.1, 0.1"/>
+			<float name="alpha" value="1"/>
+		</bsdf>
 	</bsdf>
 	<bsdf type="twosided" id="FireplaceGlass">
 		<bsdf type="conductor">
 			<string name="material" value="none"/>
 		</bsdf>
 	</bsdf>
-	<bsdf id="Transluscent" type="coating">
-		<bsdf type="conductor">
-			<string name="material" value="CsI"/>
+	<bsdf type="twosided" id="Transluscent">
+		<bsdf type="diffuse">
+			<rgb name="reflectance" value="0.9, 0.9, 0.9"/>
 		</bsdf>
-		<string name="intIOR" value="bk7"/>
 	</bsdf>
 	<bsdf type="mask" id="Leaves">
 		<texture name="opacity" type="bitmap">
@@ -139,10 +134,10 @@
 			</bsdf>
 		</bsdf>
 	</bsdf>
-	<bsdf id="Branches" type="roughconductor">
-		<string name="material" value="MgO"/>
-		<string name="distribution" value="beckmann"/>
-		<float name="alpha" value="0.25151702579119567"/>
+	<bsdf type="twosided" id="Branches">
+		<bsdf type="diffuse">
+			<rgb name="reflectance" value="0.160444, 0.0824142, 0.0199178"/>
+		</bsdf>
 	</bsdf>
 	<bsdf type="twosided" id="BottleCap">
 		<bsdf type="diffuse">
