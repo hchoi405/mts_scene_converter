@@ -1,22 +1,38 @@
 <scene version="0.6.0">
 	<default name="method" value="sppm"/>
 	<default name="maxPasses" value="30000"/>
-	<integrator type="$method">
+	<integrator type="multichannel">
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="33"/>
+			<string name="field" value="shNormal"/>
+		</integrator>
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="33"/>
+			<string name="field" value="distance"/>
+		</integrator>
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="33"/>
+			<string name="field" value="albedo"/>
+		</integrator>
+	</integrator>
+    <!-- <integrator type="$method">
 		<integer name="maxDepth" value="33"/>
 		<integer name="photonCount" value="1000000"/>
 		<integer name="maxPasses" value="$maxPasses"/>
 		<integer name="stepSnapshot" value="10000"/>
 		<integer name="kNN" value="10"/>
-	</integrator>
+	</integrator> -->
 	<sensor type="perspective">
 		<float name="fov" value="35"/>
 		<transform name="toWorld">
 			<lookat origin="-0.08850340309967417,2.687096252208715,25.679625499743622" target="-0.09183985559392312,2.700899515141523,24.769978768599522" up="-0.03925149568858474,-0.019121128492729695,0.9990463965859512"/>
 		</transform>
 		<sampler type="independent">
-			<integer name="sampleCount" value="32"/>
+			<integer name="sampleCount" value="$sampleCount"/>
 		</sampler>
 		<film type="hdrfilm">
+            <string name="pixelFormat" value="rgb, luminance, rgb"/>
+	        <string name="channelNames" value="normal, distance, albedo"/>
 			<integer name="width" value="1500"/>
 			<integer name="height" value="1000"/>
 			<boolean name="banner" value="false"/>

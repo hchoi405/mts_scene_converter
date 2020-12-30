@@ -1,13 +1,27 @@
 <scene version="0.6.0">
 	<default name="method" value="sppm"/>
 	<default name="maxPasses" value="30000"/>
-	<integrator type="$method">
+	<integrator type="multichannel">
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="6"/>
+			<string name="field" value="shNormal"/>
+		</integrator>
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="6"/>
+			<string name="field" value="distance"/>
+		</integrator>
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="6"/>
+			<string name="field" value="albedo"/>
+		</integrator>
+	</integrator>
+    <!-- <integrator type="$method">
 		<integer name="maxDepth" value="6"/>
 		<integer name="photonCount" value="1000000"/>
 		<integer name="maxPasses" value="$maxPasses"/>
 		<integer name="stepSnapshot" value="10000"/>
 		<integer name="kNN" value="10"/>
-	</integrator>
+	</integrator> -->
 	<texture type="bitmap" id="tiny_picture">
 		<string name="filename" value="textures/tiny_picture.jpg"/>
 	</texture>
@@ -1049,9 +1063,11 @@
 			<lookat origin="3.4039201136715542,5.842811030533198,22.86102217583116" target="4.252451454554895,5.972494661761302,22.37669791028486" up="0.061001001403789334,0.8192203255880445,0.570225337889464"/>
 		</transform>
 		<sampler type="independent">
-			<integer name="sampleCount" value="32"/>
+			<integer name="sampleCount" value="$sampleCount"/>
 		</sampler>
 		<film type="hdrfilm">
+            <string name="pixelFormat" value="rgb, luminance, rgb"/>
+	        <string name="channelNames" value="normal, distance, albedo"/>
 			<integer name="height" value="720"/>
 			<integer name="width" value="1280"/>
 			<rfilter type="box"/>

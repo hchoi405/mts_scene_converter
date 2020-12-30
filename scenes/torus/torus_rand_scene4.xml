@@ -1,13 +1,27 @@
 <scene version="0.6.0">
 	<default name="method" value="sppm"/>
 	<default name="maxPasses" value="30000"/>
-	<integrator type="$method">
+	<integrator type="multichannel">
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="33"/>
+			<string name="field" value="shNormal"/>
+		</integrator>
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="33"/>
+			<string name="field" value="distance"/>
+		</integrator>
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="33"/>
+			<string name="field" value="albedo"/>
+		</integrator>
+	</integrator>
+    <!-- <integrator type="$method">
 		<integer name="maxDepth" value="33"/>
 		<integer name="photonCount" value="1000000"/>
 		<integer name="maxPasses" value="$maxPasses"/>
 		<integer name="stepSnapshot" value="10000"/>
 		<integer name="kNN" value="10"/>
-	</integrator>
+	</integrator> -->
 	<bsdf id="mat_donut" type="diffuse">
 		<texture name="diffuseReflectance" type="bitmap">
 			<string name="filename" value="./textures/tiny_picture.jpg"/>
@@ -78,9 +92,11 @@
 			<lookat origin="-24.170555704885263,-38.17667120069561,30.010626424068448" target="-23.729414124648958,-37.432305055941015,29.51019956981932" up="0.8818308215966967,-0.30388268841113253,0.36059633077184444"/>
 		</transform>
 		<sampler type="independent">
-			<integer name="sampleCount" value="32"/>
+			<integer name="sampleCount" value="$sampleCount"/>
 		</sampler>
 		<film type="hdrfilm">
+            <string name="pixelFormat" value="rgb, luminance, rgb"/>
+	        <string name="channelNames" value="normal, distance, albedo"/>
 			<integer name="height" value="768"/>
 			<integer name="width" value="1024"/>
 			<rfilter type="box"/>

@@ -1,13 +1,27 @@
 <scene version="0.6.0">
 	<default name="method" value="sppm"/>
 	<default name="maxPasses" value="30000"/>
-	<integrator type="$method">
+	<integrator type="multichannel">
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="10"/>
+			<string name="field" value="shNormal"/>
+		</integrator>
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="10"/>
+			<string name="field" value="distance"/>
+		</integrator>
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="10"/>
+			<string name="field" value="albedo"/>
+		</integrator>
+	</integrator>
+    <!-- <integrator type="$method">
 		<integer name="maxDepth" value="10"/>
 		<integer name="photonCount" value="1000000"/>
 		<integer name="maxPasses" value="$maxPasses"/>
 		<integer name="stepSnapshot" value="10000"/>
 		<integer name="kNN" value="10"/>
-	</integrator>
+	</integrator> -->
 	<sensor id="Camera-camera" type="perspective">
 		<transform name="toWorld">
 			<lookat origin="-0.23546964741289766,-0.13906644343397703,2.427750184968124" target="-0.19419371001824498,-0.01024222010640466,0.5146096674642782" up="-0.3697378247606496,0.05127265466669803,0.9277203543227305"/>
@@ -17,9 +31,11 @@
 		<float name="nearClip" value="0.10000000149011612"/>
 		<float name="farClip" value="1000000.0"/>
 		<sampler id="Camera-camera_sampler" type="ldsampler">
-			<integer name="sampleCount" value="32"/>
+			<integer name="sampleCount" value="$sampleCount"/>
 		</sampler>
-		<film id="Camera-camera_film" type="hdrfilm">
+		<film type="hdrfilm">
+            <string name="pixelFormat" value="rgb, luminance, rgb"/>
+	        <string name="channelNames" value="normal, distance, albedo"/>
 			<integer name="width" value="800"/>
 			<integer name="height" value="600"/>
 			<string name="fileFormat" value="openexr"/>
