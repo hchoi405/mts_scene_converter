@@ -1,7 +1,8 @@
 <scene version="0.6.0">
 	<default name="method" value="sppm"/>
 	<default name="maxPasses" value="30000"/>
-	<integrator type="multichannel">
+	<default name="sampleCount" value="100"/>
+	<!-- <integrator type="multichannel">
 		<integrator type="field_recursive">
 			<integer name="maxDepth" value="10"/>
 			<string name="field" value="shNormal"/>
@@ -14,14 +15,14 @@
 			<integer name="maxDepth" value="10"/>
 			<string name="field" value="albedo"/>
 		</integrator>
-	</integrator>
-    <!-- <integrator type="$method">
+	</integrator> -->
+    <integrator type="$method">
 		<integer name="maxDepth" value="10"/>
 		<integer name="photonCount" value="1000000"/>
 		<integer name="maxPasses" value="$maxPasses"/>
 		<integer name="stepSnapshot" value="10000"/>
 		<integer name="kNN" value="10"/>
-	</integrator> -->
+	</integrator>
 	<sensor id="Camera-camera" type="perspective">
 		<transform name="toWorld">
 			<lookat origin="-0.24435489931714646,-0.12742918422115423,2.4399162717370513" target="0.09208241579932594,-0.10976620649457776,0.4495305172671338" up="0.18251562394401208,-0.183497135209626,0.9659279726699026"/>
@@ -34,8 +35,8 @@
 			<integer name="sampleCount" value="$sampleCount"/>
 		</sampler>
 		<film type="hdrfilm">
-            <string name="pixelFormat" value="rgb, luminance, rgb"/>
-	        <string name="channelNames" value="normal, distance, albedo"/>
+            <!-- <string name="pixelFormat" value="rgb, luminance, rgb"/>
+	        <string name="channelNames" value="normal, distance, albedo"/> -->
 			<integer name="width" value="800"/>
 			<integer name="height" value="600"/>
 			<string name="fileFormat" value="openexr"/>
