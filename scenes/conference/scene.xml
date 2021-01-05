@@ -5,7 +5,7 @@
 	Automatically converted from Wavefront OBJ
 
 -->
-<scene version="0.5.0">
+<scene version="0.6.0">
 	<default name="method" value="sppm"/>
 	<default name="stepSnapshot" value="10000"/>
 	<default name="maxPasses" value="30000"/>
@@ -37,17 +37,17 @@
 		<float name="fov" value="100"/>
 		<string name="fovAxis" value="diagonal"/>
 		<transform name="toWorld">
-			<lookat origin="-100.046 -400.019 -399.944" target="-99.3793 -399.686 -399.277" up="0 -1 0"/>
+			<lookat origin="-100.04, -400.019, -399.944" target="-99.3793, -399.686, -399.277" up="0, -1, 0"/>
 			<scale y="-1"/>
 		</transform>
 
 		<sampler type="independent">
-			<integer name="sampleCount" value="64"/>
+			<integer name="sampleCount" value="$sampleCount"/>
 		</sampler>
 
 		<film type="hdrfilm">
 			<!-- <string name="pixelFormat" value="rgb, luminance, rgb"/>
-	        <string name="channelNames" value="normal, distance, albedo"/> -->
+			<string name="channelNames" value="normal, distance, albedo"/> -->
 			<integer name="width" value="1280" />
 			<integer name="height" value="720" />
 			<boolean name="banner" value="false" />
