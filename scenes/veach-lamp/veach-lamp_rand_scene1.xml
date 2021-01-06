@@ -3,6 +3,7 @@
 	<default name="stepSnapshot" value="10000"/>
 	<default name="maxPasses" value="30000"/>
 	<default name="sampleCount" value="100"/>
+	<default name="kNN" value="10"/>
 	<!-- <integrator type="multichannel">
 		<integrator type="field_recursive">
 			<integer name="maxDepth" value="6"/>
@@ -22,7 +23,7 @@
 		<integer name="photonCount" value="1000000"/>
 		<integer name="maxPasses" value="$maxPasses"/>
 		<integer name="stepSnapshot" value="$stepSnapshot"/>
-		<integer name="kNN" value="10"/>
+		<integer name="kNN" value="$kNN" />
 	</integrator>
 	<sensor type="perspective">
 		<float name="farClip" value="100"/>
