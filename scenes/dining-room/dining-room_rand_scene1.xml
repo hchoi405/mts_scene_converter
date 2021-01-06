@@ -4,6 +4,7 @@
 	<default name="maxPasses" value="30000"/>
 	<default name="sampleCount" value="100"/>
 	<default name="kNN" value="10"/>
+	<default name="dualBuffer" value="false"/>
 	<!-- <integrator type="multichannel">
 		<integrator type="field_recursive">
 			<integer name="maxDepth" value="65"/>
@@ -24,6 +25,7 @@
 		<integer name="maxPasses" value="$maxPasses"/>
 		<integer name="stepSnapshot" value="$stepSnapshot"/>
 		<integer name="kNN" value="$kNN" />
+		<boolean name="dualBuffer" value="true" />
 	</integrator>
 	<sensor type="perspective">
 		<float name="fov" value="60"/>
