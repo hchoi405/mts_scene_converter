@@ -1,0 +1,451 @@
+<scene version="0.6.0">
+	<default name="method" value="sppm"/>
+	<default name="stepSnapshot" value="10000"/>
+	<default name="maxPasses" value="30000"/>
+	<default name="sampleCount" value="100"/>
+	<default name="kNN" value="10"/>
+	<default name="dualBuffer" value="false"/>
+	<integrator type="multichannel">
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="6"/>
+			<string name="field" value="shNormal"/>
+		</integrator>
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="6"/>
+			<string name="field" value="distance"/>
+		</integrator>
+		<integrator type="field_recursive">
+			<integer name="maxDepth" value="6"/>
+			<string name="field" value="albedo"/>
+		</integrator>
+	</integrator>
+    
+	<texture id="Map__1_image-image" type="bitmap">
+		<string name="filename" value="textures/sp_luk.JPG"/>
+	</texture>
+	<texture id="Map__46_image-image" type="bitmap">
+		<string name="filename" value="textures/00_skap.JPG"/>
+	</texture>
+	<texture id="Map__38_image-image" type="bitmap">
+		<string name="filename" value="textures/01_STUB.JPG"/>
+	</texture>
+	<texture id="Map__35_image-image" type="bitmap">
+		<string name="filename" value="textures/01_S_ba.JPG"/>
+	</texture>
+	<texture id="Map__40_image-image" type="bitmap">
+		<string name="filename" value="textures/x01_st.JPG"/>
+	</texture>
+	<texture id="Map__9_image-image" type="bitmap">
+		<string name="filename" value="textures/KAMEN.JPG"/>
+	</texture>
+	<texture id="Map__44_image-image" type="bitmap">
+		<string name="filename" value="textures/reljef.JPG"/>
+	</texture>
+	<texture id="Map__11_image-image" type="bitmap">
+		<string name="filename" value="textures/prozor1.JPG"/>
+	</texture>
+	<texture id="Map__55_image-image" type="bitmap">
+		<string name="filename" value="textures/vrata_kr.JPG"/>
+	</texture>
+	<texture id="Map__54_image-image" type="bitmap">
+		<string name="filename" value="textures/vrata_ko.JPG"/>
+	</texture>
+	<bsdf id="sp_00_luk_mali" type="diffuse">
+		<ref id="Map__1_image-image" name="reflectance"/>
+	</bsdf>
+	<bsdf id="sp_svod_kapitel" type="diffuse">
+		<ref id="Map__46_image-image" name="reflectance"/>
+	</bsdf>
+	<bsdf id="sp_01_stub_baza_" type="coating">
+		<bsdf type="conductor">
+			<string name="material" value="K"/>
+		</bsdf>
+		<string name="intIOR" value="fused quartz"/>
+	</bsdf>
+	<bsdf id="sp_01_stub_kut" type="roughconductor">
+		<string name="material" value="Se"/>
+		<string name="distribution" value="beckmann"/>
+		<float name="alpha" value="0.005877245041976548"/>
+	</bsdf>
+	<bsdf id="sp_00_stup" type="conductor">
+		<string name="material" value="MgO"/>
+	</bsdf>
+	<bsdf id="sp_01_stub_baza" type="diffuse">
+		<ref id="Map__35_image-image" name="reflectance"/>
+	</bsdf>
+	<bsdf id="sp_01_stub" type="coating">
+		<bsdf type="conductor">
+			<string name="material" value="Cu"/>
+		</bsdf>
+		<string name="intIOR" value="diamond"/>
+	</bsdf>
+	<bsdf id="sp_01_stup" type="diffuse">
+		<ref id="Map__40_image-image" name="reflectance"/>
+	</bsdf>
+	<bsdf id="sp_vijenac" type="diffuse">
+		<ref id="Map__46_image-image" name="reflectance"/>
+	</bsdf>
+	<bsdf id="sp_00_pod" type="diffuse">
+		<spectrum name="reflectance" value="0.4936,0.212,0.3934"/>
+	</bsdf>
+	<bsdf id="sp_00_svod" type="conductor">
+		<string name="material" value="Au"/>
+	</bsdf>
+	<bsdf id="sp_02_reljef" type="diffuse">
+		<ref id="Map__44_image-image" name="reflectance"/>
+	</bsdf>
+	<bsdf id="sp_01_luk_a" type="diffuse">
+		<ref id="Map__1_image-image" name="reflectance"/>
+	</bsdf>
+	<bsdf id="sp_zid_vani" type="diffuse">
+		<ref id="Map__9_image-image" name="reflectance"/>
+	</bsdf>
+	<bsdf id="sp_01_stup_baza" type="coating">
+		<bsdf type="conductor">
+			<string name="material" value="TiN"/>
+		</bsdf>
+		<string name="intIOR" value="water"/>
+	</bsdf>
+	<bsdf id="sp_00_zid" type="diffuse">
+		<ref id="Map__9_image-image" name="reflectance"/>
+	</bsdf>
+	<bsdf id="sp_00_prozor" type="diffuse">
+		<ref id="Map__11_image-image" name="reflectance"/>
+	</bsdf>
+	<bsdf id="sp_00_vrata_krug" type="coating">
+		<bsdf type="dielectric">
+			<string name="intIOR" value="vacuum"/>
+			<string name="extIOR" value="bk7"/>
+		</bsdf>
+		<string name="intIOR" value="bk7"/>
+	</bsdf>
+	<bsdf id="sp_00_vrata_kock" type="diffuse">
+		<ref id="Map__54_image-image" name="reflectance"/>
+	</bsdf>
+	<sensor type="perspective">
+		<float name="farClip" value="1000"/>
+		<float name="focusDistance" value="10.9704"/>
+		<float name="fov" value="96.6708"/>
+		<string name="fovAxis" value="x"/>
+		<float name="nearClip" value="1"/>
+		<transform name="toWorld">
+			<lookat origin="2.2528387575067597,8.25017945244486,-0.04471564630368733" target="3.0114363705252534,7.599983771385382,-0.002456041073333845" up="-0.6473477656067856,-0.7447308407982639,0.1622246748426796"/>
+		</transform>
+		<sampler type="independent">
+			<integer name="sampleCount" value="$sampleCount"/>
+		</sampler>
+		<film type="hdrfilm">
+            <string name="pixelFormat" value="rgb, luminance, rgb"/>
+	        <string name="channelNames" value="normal, distance, albedo"/>
+			<integer name="height" value="720"/>
+			<integer name="width" value="1280"/>
+			<rfilter type="box"/>
+			<boolean name="banner" value="false"/>
+		</film>
+	</sensor>
+	<shape type="sphere">
+		<point name="center" x="0" y="17" z="0"/>
+		<float name="radius" value="0.1"/>
+		<emitter type="area">
+			<spectrum name="radiance" value="16000"/>
+		</emitter>
+		<bsdf type="diffuse"/>
+	</shape>
+	<shape id="arcs_floor_small-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="0"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_luk_mali" name="bsdf"/>
+	</shape>
+	<shape id="arcs_03-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="1"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_luk_mali" name="bsdf"/>
+	</shape>
+	<shape id="object32-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="2"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_svod_kapitel" name="bsdf"/>
+	</shape>
+	<shape id="object31-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="3"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_01_stub_baza_" name="bsdf"/>
+	</shape>
+	<shape id="pillar_corners-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="4"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_01_stub_kut" name="bsdf"/>
+	</shape>
+	<shape id="pillar_floor-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="5"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_stup" name="bsdf"/>
+	</shape>
+	<shape id="object28-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="6"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_01_stub_baza" name="bsdf"/>
+	</shape>
+	<shape id="object27-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="7"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_luk_mali" name="bsdf"/>
+	</shape>
+	<shape id="pillar_quader-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="8"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_01_stub" name="bsdf"/>
+	</shape>
+	<shape id="pillar_round-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="9"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_01_stup" name="bsdf"/>
+	</shape>
+	<shape id="arcs_floor_long-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="10"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_luk_mali" name="bsdf"/>
+	</shape>
+	<shape id="object23-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="11"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_vijenac" name="bsdf"/>
+	</shape>
+	<shape id="floors-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="12"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_pod" name="bsdf"/>
+	</shape>
+	<shape id="object21-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="13"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_svod" name="bsdf"/>
+	</shape>
+	<shape id="puillar_floor_corner-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="14"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_stup" name="bsdf"/>
+	</shape>
+	<shape id="object19-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="15"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_luk_mali" name="bsdf"/>
+	</shape>
+	<shape id="relief-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="16"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_02_reljef" name="bsdf"/>
+	</shape>
+	<shape id="arcs_small-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="17"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_01_luk_a" name="bsdf"/>
+	</shape>
+	<shape id="holes-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="18"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_01_stup" name="bsdf"/>
+	</shape>
+	<shape id="outside01-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="19"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_zid_vani" name="bsdf"/>
+	</shape>
+	<shape id="arcs_long-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="20"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_01_luk_a" name="bsdf"/>
+	</shape>
+	<shape id="parapet-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="21"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_01_luk_a" name="bsdf"/>
+	</shape>
+	<shape id="round_holes-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="22"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_01_luk_a" name="bsdf"/>
+	</shape>
+	<shape id="ceiling-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="23"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_svod" name="bsdf"/>
+	</shape>
+	<shape id="arcs_01-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="24"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_01_luk_a" name="bsdf"/>
+	</shape>
+	<shape id="object6-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="25"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_svod_kapitel" name="bsdf"/>
+	</shape>
+	<shape id="object5-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="26"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_svod_kapitel" name="bsdf"/>
+	</shape>
+	<shape id="object4-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="27"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<float name="maxSmoothAngle" value="40"/>
+		<ref id="sp_00_luk_mali" name="bsdf"/>
+	</shape>
+	<shape id="object3-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="28"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_01_stup_baza" name="bsdf"/>
+	</shape>
+	<shape id="arcs_02-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="29"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_01_luk_a" name="bsdf"/>
+	</shape>
+	<shape id="arcs_04-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="30"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_luk_mali" name="bsdf"/>
+	</shape>
+	<shape id="walls-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="31"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_zid" name="bsdf"/>
+	</shape>
+	<shape id="walls-lib_1" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="32"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_prozor" name="bsdf"/>
+	</shape>
+	<shape id="walls-lib_2" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="33"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_vrata_krug" name="bsdf"/>
+	</shape>
+	<shape id="windows-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="34"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_prozor" name="bsdf"/>
+	</shape>
+	<shape id="doors-lib_0" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="35"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_vrata_kock" name="bsdf"/>
+	</shape>
+	<shape id="doors-lib_1" type="serialized">
+		<string name="filename" value="sponza.serialized"/>
+		<integer name="shapeIndex" value="36"/>
+		<transform name="toWorld">
+			<matrix value="1 0 0 0.00724 0 1 1.39626e-07 0.093312 0 -1.39626e-07 1 0.00149 0 0 0 1"/>
+		</transform>
+		<ref id="sp_00_vrata_krug" name="bsdf"/>
+	</shape>
+</scene>

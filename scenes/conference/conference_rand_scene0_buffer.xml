@@ -1,0 +1,480 @@
+<scene version="0.6.0">
+	<default name="method" value="sppm" />
+	<default name="stepSnapshot" value="10000" />
+	<default name="maxPasses" value="30000" />
+	<default name="sampleCount" value="100"/>
+	<default name="kNN" value="10"/>
+	<default name="dualBuffer" value="false"/>
+	
+    
+
+	<sensor type="perspective">
+		<float name="focusDistance" value="994.594" />
+		<float name="fov" value="100" />
+		<string name="fovAxis" value="diagonal" />
+		<transform name="toWorld">
+			<lookat origin="-100.04, -400.019, -399.944" target="-99.3793, -399.686, -399.277" up="0, -1, 0" />
+			<scale y="-1" />
+		</transform>
+
+		<sampler type="independent">
+			<integer name="sampleCount" value="$sampleCount" />
+		</sampler>
+
+		<film type="hdrfilm">
+			
+			<integer name="width" value="1280" />
+			<integer name="height" value="720" />
+			<boolean name="banner" value="false" />
+			<string name="componentFormat" value="float32" />
+			<rfilter type="box" />
+		</film>
+	</sensor>
+
+	<bsdf id="Light" type="twosided">
+		<bsdf type="diffuse">
+			<rgb name="reflectance" value="0, 0, 0" />
+		</bsdf>
+	</bsdf>
+
+	<shape type="cylinder">
+		<float name="radius" value="20" />
+		<transform name="toWorld">
+			<translate x="0" y="650" z="0" />
+			<rotate angle="90" y="1" />
+		</transform>
+
+		<ref id="Light" />
+
+		<emitter type="area">
+			<rgb name="radiance" value="50000, 50000, 50000" />
+		</emitter>
+	</shape>
+
+	<bsdf id="Material__0_material" type="diffuse">
+		<rgb name="reflectance" value="0.047059 0.047059 0.047059" />
+	</bsdf>
+
+	<bsdf id="mesh0_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.639216 0.6 0.607843" />
+	</bsdf>
+
+	<bsdf id="mesh10_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.6 0.6 0.6" />
+	</bsdf>
+
+	<bsdf id="mesh11_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.117647 0.258824 0.14902" />
+	</bsdf>
+
+	<bsdf id="mesh12_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.427451 0.427451 0.427451" />
+	</bsdf>
+
+	<bsdf id="mesh13_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.517647 0.447059 0.337255" />
+	</bsdf>
+
+	<bsdf id="mesh15_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.447059 0.447059 0.447059" />
+	</bsdf>
+
+	<bsdf id="mesh16_SG_material" type="diffuse">
+		<rgb name="reflectance" value="1 1 1" />
+	</bsdf>
+
+	<bsdf id="mesh17_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.498039 0.498039 0.498039" />
+	</bsdf>
+
+	<bsdf id="mesh18_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.4 0.4 0.4" />
+	</bsdf>
+
+	<bsdf id="mesh19_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.878431 0.717647 0.576471" />
+	</bsdf>
+
+	<bsdf id="mesh1_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.639216 0.4 0.129412" />
+	</bsdf>
+
+	<bsdf id="mesh20_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.827451 0.698039 0.427451" />
+	</bsdf>
+
+	<bsdf id="mesh21_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.286275 0.14902 0.129412" />
+	</bsdf>
+
+	<bsdf id="mesh22_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.078431 0.078431 0.078431" />
+	</bsdf>
+
+	<bsdf id="mesh23_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.819608 0.086275 0.066667" />
+	</bsdf>
+
+	<bsdf id="mesh24_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.698039 0.698039 0.698039" />
+	</bsdf>
+
+	<bsdf id="mesh25_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.6 0.6 0.6" />
+	</bsdf>
+
+	<bsdf id="mesh26_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.098039 0.098039 0.098039" />
+	</bsdf>
+
+	<bsdf id="mesh27_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.466667 0.447059 0.427451" />
+	</bsdf>
+
+	<bsdf id="mesh28_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.639216 0.439216 0.317647" />
+	</bsdf>
+
+	<bsdf id="mesh29_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.286275 0.14902 0.129412" />
+	</bsdf>
+
+	<bsdf id="mesh2_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.737255 0.4 0.156863" />
+	</bsdf>
+
+	<bsdf id="mesh30_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.058824 0.058824 0.058824" />
+	</bsdf>
+
+	<bsdf id="mesh31_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.976471 0.176471 0.168627" />
+	</bsdf>
+
+	<bsdf id="mesh32_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.6 0.6 0.6" />
+	</bsdf>
+
+	<bsdf id="mesh33_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.478431 0.239216 0.117647" />
+	</bsdf>
+
+	<bsdf id="mesh34_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.047059 0.047059 0.047059" />
+	</bsdf>
+
+	<bsdf id="mesh35_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.6 0.6 0.6" />
+	</bsdf>
+
+	<bsdf id="mesh4_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.176471 0.058824 0.058824" />
+	</bsdf>
+
+	<bsdf id="mesh5_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.898039 0.898039 0.898039" />
+	</bsdf>
+
+	<bsdf id="mesh6_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.066667 0.066667 0.066667" />
+	</bsdf>
+
+	<bsdf id="mesh7_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.698039 0.698039 0.698039" />
+	</bsdf>
+
+	<bsdf id="mesh8_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.686275 0.427451 0.168627" />
+	</bsdf>
+
+	<bsdf id="mesh9_SG_material" type="diffuse">
+		<rgb name="reflectance" value="0.709804 0.709804 0.709804" />
+	</bsdf>
+
+	<shape id="conference13_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="0" />
+
+		<ref name="bsdf" id="mesh25_SG_material" />
+	</shape>
+
+	<shape id="conference13_1_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="1" />
+
+		<ref name="bsdf" id="mesh13_SG_material" />
+	</shape>
+
+	<shape id="conference13_2_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="2" />
+
+		<ref name="bsdf" id="mesh6_SG_material" />
+	</shape>
+
+	<shape id="conference13_3_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="3" />
+
+		<ref name="bsdf" id="mesh7_SG_material" />
+	</shape>
+
+	<shape id="conference13_4_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="4" />
+
+		<ref name="bsdf" id="mesh26_SG_material" />
+	</shape>
+
+	<shape id="conference13_5_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="5" />
+
+		<ref name="bsdf" id="mesh22_SG_material" />
+	</shape>
+
+	<shape id="conference13_6_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="6" />
+
+		<ref name="bsdf" id="mesh8_SG_material" />
+	</shape>
+
+	<shape id="conference13_7_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="7" />
+
+		<ref name="bsdf" id="Material__0_material" />
+	</shape>
+
+	<shape id="conference13_8_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="8" />
+
+		<ref name="bsdf" id="mesh31_SG_material" />
+	</shape>
+
+	<shape id="conference13_9_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="9" />
+
+		<ref name="bsdf" id="mesh16_SG_material" />
+	</shape>
+
+	<shape id="conference13_10_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="10" />
+
+		<ref name="bsdf" id="mesh32_SG_material" />
+	</shape>
+
+	<shape id="conference13_11_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="11" />
+
+		<ref name="bsdf" id="mesh20_SG_material" />
+	</shape>
+
+	<shape id="conference13_12_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="12" />
+
+		<ref name="bsdf" id="mesh10_SG_material" />
+	</shape>
+
+	<shape id="conference13_13_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="13" />
+
+		<ref name="bsdf" id="mesh0_SG_material" />
+	</shape>
+
+	<shape id="conference13_14_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="14" />
+
+		<ref name="bsdf" id="mesh35_SG_material" />
+	</shape>
+
+	<shape id="conference13_15_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="15" />
+
+		<ref name="bsdf" id="mesh33_SG_material" />
+	</shape>
+
+	<shape id="conference13_16_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="16" />
+
+		<ref name="bsdf" id="mesh25_SG_material" />
+	</shape>
+
+	<shape id="conference13_17_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="17" />
+
+		<ref name="bsdf" id="mesh27_SG_material" />
+	</shape>
+
+	<shape id="conference13_18_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="18" />
+
+		<ref name="bsdf" id="mesh15_SG_material" />
+	</shape>
+
+	<shape id="conference13_19_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="19" />
+
+		<ref name="bsdf" id="mesh4_SG_material" />
+	</shape>
+
+	<shape id="conference13_20_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="20" />
+
+		<ref name="bsdf" id="mesh28_SG_material" />
+	</shape>
+
+	<shape id="conference13_21_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="21" />
+
+		<ref name="bsdf" id="mesh33_SG_material" />
+	</shape>
+
+	<shape id="conference13_22_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="22" />
+
+		<ref name="bsdf" id="mesh34_SG_material" />
+	</shape>
+
+	<shape id="conference13_23_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="23" />
+
+		<ref name="bsdf" id="mesh12_SG_material" />
+	</shape>
+
+	<shape id="conference13_24_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="24" />
+
+		<ref name="bsdf" id="mesh5_SG_material" />
+	</shape>
+
+	<shape id="conference13_25_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="25" />
+
+		<ref name="bsdf" id="mesh17_SG_material" />
+	</shape>
+
+	<shape id="conference13_26_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="26" />
+
+		<ref name="bsdf" id="mesh34_SG_material" />
+	</shape>
+
+	<shape id="conference13_27_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="27" />
+
+		<ref name="bsdf" id="Material__0_material" />
+	</shape>
+
+	<shape id="conference13_28_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="28" />
+
+		<ref name="bsdf" id="mesh29_SG_material" />
+	</shape>
+
+	<shape id="conference13_29_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="29" />
+
+		<ref name="bsdf" id="mesh21_SG_material" />
+	</shape>
+
+	<shape id="conference13_30_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="30" />
+
+		<ref name="bsdf" id="mesh30_SG_material" />
+	</shape>
+
+	<shape id="conference13_31_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="31" />
+
+		<ref name="bsdf" id="mesh33_SG_material" />
+	</shape>
+
+	<shape id="conference13_32_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="32" />
+
+		<ref name="bsdf" id="mesh18_SG_material" />
+	</shape>
+
+	<shape id="conference13_33_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="33" />
+
+		<ref name="bsdf" id="mesh1_SG_material" />
+	</shape>
+
+	<shape id="conference13_34_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="34" />
+
+		<ref name="bsdf" id="mesh2_SG_material" />
+	</shape>
+
+	<shape id="conference13_35_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="35" />
+
+		<ref name="bsdf" id="mesh24_SG_material" />
+	</shape>
+
+	<shape id="conference13_36_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="36" />
+
+		<ref name="bsdf" id="mesh19_SG_material" />
+	</shape>
+
+	<shape id="conference13_37_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="37" />
+
+		<bsdf type="diffuse" />
+	</shape>
+
+	<shape id="conference13_38_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="38" />
+
+		<ref name="bsdf" id="mesh16_SG_material" />
+	</shape>
+
+	<shape id="conference13_39_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="39" />
+
+		<ref name="bsdf" id="mesh23_SG_material" />
+	</shape>
+
+	<shape id="conference13_40_mesh" type="serialized">
+		<string name="filename" value="conference13.serialized" />
+		<integer name="shapeIndex" value="40" />
+
+		<ref name="bsdf" id="mesh11_SG_material" />
+	</shape>
+</scene>
