@@ -21,7 +21,7 @@
 			<integer name="width" value="1280"/>
 			<integer name="height" value="720"/>
 			<boolean name="banner" value="false"/>
-			<string name="componentFormat" value="float32"/>
+
 			<rfilter type="box"/>
 		</film>
 	</sensor>

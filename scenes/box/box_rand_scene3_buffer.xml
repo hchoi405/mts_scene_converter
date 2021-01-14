@@ -38,7 +38,7 @@
 			<integer name="height" value="600"/>
 			<string name="fileFormat" value="openexr"/>
 			<string name="pixelFormat" value="rgb"/>
-			<string name="componentFormat" value="float16"/>
+
 			<boolean name="attachLog" value="false"/>
 			<boolean name="banner" value="false"/>
 			<boolean name="highQualityEdges" value="false"/>
