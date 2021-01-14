@@ -5,20 +5,7 @@
 	<default name="sampleCount" value="100"/>
 	<default name="kNN" value="10"/>
 	<default name="dualBuffer" value="true"/>
-	<!-- <integrator type="multichannel">
-		<integrator type="field_recursive">
-			<integer name="maxDepth" value="17"/>
-			<string name="field" value="shNormal"/>
-		</integrator>
-		<integrator type="field_recursive">
-			<integer name="maxDepth" value="17"/>
-			<string name="field" value="distance"/>
-		</integrator>
-		<integrator type="field_recursive">
-			<integer name="maxDepth" value="17"/>
-			<string name="field" value="albedo"/>
-		</integrator>
-	</integrator> -->
+	
     <integrator type="$method">
 		<integer name="maxDepth" value="17" />
 		<integer name="photonCount" value="1000000" />
@@ -36,8 +23,7 @@
 			<integer name="sampleCount" value="$sampleCount"/>
 		</sampler>
 		<film type="hdrfilm">
-            <!-- <string name="pixelFormat" value="rgb, luminance, rgb"/>
-	        <string name="channelNames" value="normal, distance, albedo"/> -->
+            
 			<integer name="width" value="1280" />
 			<integer name="height" value="720" />
 			
